@@ -1,0 +1,53 @@
+.background-fone{
+    background: rgba(231, 18, 18, 0.61);
+    height: 100%;
+    width: 100%;
+}
+  
+#signin-form {
+    width: 700px;
+    height: 500px;
+    border: 1px solid #01002e;
+    border-radius: 10px;
+    background-color: aliceblue;
+    margin: auto;
+    
+}
+
+#signin-form p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 1.5em;
+    color: #e221d2;
+}
+
+#signin-form hr {
+    width: 200px;
+    text-align: center;
+    border: 0;
+    border-bottom: 5px solid #e221d2;
+    border-radius: 5px;
+    text-shadow: none;
+    padding: 0;
+}
+
+.form-fields {
+    width: 250px;
+    height: 20px;
+    font-family: 'Courgette', cursive;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+    border-radius: 5px;
+    text-shadow: none;
+    border: 1px solid #e221d2;
+}
+
+.form-fields:focus{
+    border-radius: 5px;
+    text-shadow: none;
+    border: 1px solid #e221d2;
+}

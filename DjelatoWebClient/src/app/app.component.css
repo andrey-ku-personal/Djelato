@@ -1,0 +1,63 @@
+header {
+    background: #01002e;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+}
+
+#header-time {
+    float: left;
+    height: 100%;
+    margin-left: 10px;
+}
+
+#header-time span {
+    color: aliceblue;
+    line-height: 50px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+}
+
+#header-name p {
+    text-align: center;
+    line-height: 50px;
+    font-size: 2em;
+    color: aliceblue;
+    margin: 0;
+    padding: 0;
+}
+
+@media(max-width: 500px){
+    #header-name a {
+        text-align: left;
+        margin-left: 100px;
+    }
+}
+
+#menu {
+    height: 100%;
+    float: right;
+    margin-right: 10px;
+    line-height: 48px;
+}
+
+#menu button {
+    background-color: #01002e;
+    padding-top: 4px;
+    color: aliceblue;
+    border: 2px solid aliceblue;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 2em;
+    vertical-align: middle;
+}
+
+.mat-menu-item {
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+

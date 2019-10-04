@@ -4,6 +4,122 @@
     "D:\\Projects\\djelato\\Djelato\\Djelato.Services\\Djelato.Services.csproj": {}
   },
   "projects": {
+    "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj",
+        "projectName": "Djelato.Common",
+        "projectPath": "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\Djelato.DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\Djelato.DataAccess.csproj",
+        "projectName": "Djelato.DataAccess",
+        "projectPath": "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\Djelato.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj": {
+                "projectPath": "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
     "D:\\Projects\\djelato\\Djelato\\Djelato.Services\\Djelato.Services.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -29,7 +145,14 @@
         },
         "frameworks": {
           "netcoreapp2.2": {
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj": {
+                "projectPath": "D:\\Projects\\djelato\\Djelato\\Djelato.Common\\Djelato.Common.csproj"
+              },
+              "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\Djelato.DataAccess.csproj": {
+                "projectPath": "D:\\Projects\\djelato\\Djelato\\Djelato.DataAccess\\Djelato.DataAccess.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
