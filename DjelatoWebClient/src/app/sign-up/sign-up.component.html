@@ -7,87 +7,69 @@
 
         <hr class="form-hr"/>
 
-        <form class="form-to-submit" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-            
-            <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                    <input matInput placeholder="Name" formControlName="name" required> 
-                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="example-form">
 
-                    <mat-error *ngIf="name.hasError('required')">
-                        Field should be <strong>required</strong>
-                    </mat-error>
-                    <mat-error *ngIf="name.hasError('pattern')">
-                        Field should use <strong>Latin alphabet</strong> 
-                    </mat-error>
-
-                </mat-form-field>
-            </div>
-
-            <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                    <input matInput placeholder="Email" formControlName="email" required>
-                    <mat-icon matSuffix>email</mat-icon> 
-
-                    <mat-error *ngIf="email.hasError('required')">
-                        Field should be <strong>required</strong>
-                    </mat-error>
-                    <mat-error *ngIf="email.hasError('pattern')">
-                        Use right <strong>email format</strong> 
-                    </mat-error>
-
-                </mat-form-field>
-            </div>
-
-            <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                    <input matInput type="password" placeholder="Password" formControlName="password" required> 
-                    <mat-icon matSuffix>lock</mat-icon>
-
-                    <mat-error *ngIf="password.hasError('required')">
-                        Field should be <strong>required</strong>
-                    </mat-error>
-                    <mat-error *ngIf="password.hasError('pattern')">
-                        Should be <strong>minimum 8 elements, one uppercase letter, one number</strong> 
-                    </mat-error>
-
-                </mat-form-field>
-            </div>
-
-            <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                    <input matInput type="password" [errorStateMatcher]="matcher" placeholder="Confirm password" formControlName="passwordConfirm" required> 
-                    <mat-icon matSuffix>lock</mat-icon>
-
-                    <mat-error *ngIf="passwordConfirm.hasError('required')">
-                        Field should be <strong>required</strong>
-                    </mat-error>
-
-                    <mat-error *ngIf="profileForm.hasError('mismatch')">
-                        Field should be <strong>requiredAAAAA</strong>
-                    </mat-error>
-
-                </mat-form-field>
-            </div>
-
-            <div class="form-input-button">
-                <button mat-raised-button color="accent" [disabled]="!profileForm.valid" type="submit">Submit</button>
-                <button mat-raised-button color="warn">Cancel</button>
-            </div>
-            
-              
-        </form>
-        
-        <!-- <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Repeat password">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email">
-        </mat-form-field> -->
-    </div>
-
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Name" formControlName="name" required> 
+              <mat-icon matSuffix>supervised_user_circle</mat-icon>
     
+              <mat-error *ngIf="name.hasError('required')">
+                  Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="name.hasError('pattern')">
+                  Field should use <strong>Latin alphabet</strong> 
+              </mat-error>    
+            </mat-form-field>
+          </div>
+
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Email" formControlName="email" required>
+              <mat-icon matSuffix>email</mat-icon> 
+
+              <mat-error *ngIf="email.hasError('required')">
+                Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="email.hasError('pattern')">
+                  Use right <strong>email format</strong> 
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="password" formControlName="password">
+              <mat-icon matSuffix>lock</mat-icon>  
+              <mat-error *ngIf="password.hasError('required')">
+                Field should be <strong>filled</strong> 
+              </mat-error>
+              <mat-error *ngIf="password.hasError('pattern')">
+                Should be <strong>minimum 8 elements, one uppercase letter, one number</strong> 
+              </mat-error>
+                                  
+            </mat-form-field>
+          </div>
+            
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="repeat password" formControlName="passwordConfirm">
+              <mat-icon matSuffix>lock</mat-icon>                     
+                <mat-error *ngIf="passwordConfirm.hasError('mismatch')">
+                  Field is <strong>mismatch</strong> 
+                </mat-error>
+                <mat-error *ngIf="passwordConfirm.hasError('required')">
+                  Field should be <strong>filled</strong> 
+                </mat-error>                   
+            </mat-form-field>
+          </div>
+
+          <div class="form-input-button">
+            <button mat-raised-button color="primary" [disabled]="!profileForm.valid" type="submit">Submit</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+
+        </form>              
+    </div>
 </div>

@@ -11,7 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule,
          MatMenuModule,
          MatInputModule,
-         MatButtonModule
+         MatButtonModule,
+         ErrorStateMatcher,
+         ShowOnDirtyErrorStateMatcher
          } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -25,9 +27,9 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    AppRoutingModule,    
     MatMenuModule,
     MatIconModule,
     MatInputModule,
