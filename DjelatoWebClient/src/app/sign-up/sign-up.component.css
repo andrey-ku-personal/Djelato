@@ -1,53 +1,82 @@
-.background-fone{
-    background: rgba(231, 18, 18, 0.61);
+.background-fone {
+    background: rgba(231, 18, 18, 0.3);
     height: 100%;
     width: 100%;
+    padding-top: 100px;
 }
   
 #signin-form {
-    width: 700px;
-    height: 500px;
+    width: 500px;
+    height: 530px;
     border: 1px solid #01002e;
     border-radius: 10px;
     background-color: aliceblue;
-    margin: auto;
-    
+    margin: auto;    
 }
 
-#signin-form p {
+.form-name {
+    padding-top  : 25px;
+}
+
+.form-name p {
     padding: 0;
     margin: 0;
     text-align: center;
     font-family: 'Indie Flower', cursive;
     font-weight: bolder;
     font-size: 1.5em;
-    color: #e221d2;
+    color: #00218f;
 }
 
 #signin-form hr {
     width: 200px;
     text-align: center;
     border: 0;
-    border-bottom: 5px solid #e221d2;
+    border-bottom: 5px solid #00218f;
     border-radius: 5px;
     text-shadow: none;
-    padding: 0;
 }
 
-.form-fields {
-    width: 250px;
-    height: 20px;
+#signin-form .form-to-submit {
+    margin: 20px 0;
+}
+
+.form-input-position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+::ng-deep .example-full-width{
+  width:400px !important;
+}
+
+::ng-deep input {
+    color: black !important;
     font-family: 'Courgette', cursive;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 20px;
-    border-radius: 5px;
-    text-shadow: none;
-    border: 1px solid #e221d2;
+    font-weight: 500px;
+    font-size: 20px !important
 }
 
-.form-fields:focus{
-    border-radius: 5px;
-    text-shadow: none;
-    border: 1px solid #e221d2;
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #00218f !important;
 }
+  
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+    background-color: #00218f !important;
+}
+
+.form-input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.form-input-button button {
+    margin: 0 20px;
+    margin-top: 40px;
+}
+

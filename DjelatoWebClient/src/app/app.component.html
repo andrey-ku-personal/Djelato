@@ -4,24 +4,19 @@
   </div>
 
   <div id="menu">
-      <button class mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <button class mat-icon-button class="mat-menu-content" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>menu</mat-icon>
       </button>
-      <mat-menu #menu="matMenu" class="mat-menu" yPosition="below" xPosition="before">
-          <button mat-menu-item class="mat-menu-item">
-              <a routerLink="/signup" routerLinkActive="active">Sign up</a>
-          </button>
-      </mat-menu>
+      <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+        <button mat-menu-item class="mat-menu-item">
+            <a routerLink="/signup" routerLinkActive="active">Sign up</a>
+        </button>
+    </mat-menu>
   </div>
 
   <div id="header-name">
-      <p>Djelato</p>
-    </div>
-
+    <p>Djelato</p>
+  </div>
 </header>
-
-<!-- <nav>
-  <a routerLink="signup">Sign up</a>
-</nav> -->
 
 <router-outlet></router-outlet>

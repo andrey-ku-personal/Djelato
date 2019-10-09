@@ -12,17 +12,18 @@ header {
 }
 
 #header-time span {
-    color: aliceblue;
+    color: whitesmoke;
     line-height: 50px;
     font-family: 'Roboto', sans-serif;
     font-weight: bolder;
+    line-height: 50px;
 }
 
 #header-name p {
     text-align: center;
     line-height: 50px;
     font-size: 2em;
-    color: aliceblue;
+    color: whitesmoke;
     margin: 0;
     padding: 0;
 }
@@ -38,26 +39,33 @@ header {
     height: 100%;
     float: right;
     margin-right: 10px;
-    line-height: 48px;
+    margin-top: 5px;
+    line-height: 50px;
+    
 }
 
-#menu button {
-    background-color: #01002e;
-    padding-top: 4px;
-    color: aliceblue;
-    border: 2px solid aliceblue;
-    font-weight: bold;
-    border-radius: 5px;
-    font-size: 2em;
-    vertical-align: middle;
+.mat-icon {
+    color: whitesmoke;
+    line-height: 50px;
+    font-weight: bolder;
+    padding-bottom: 17px;
 }
 
 .mat-menu-item {
-    font-size: 1.2em;
+    text-align: center;    
+}
+
+button.mat-menu-item:hover {
+    background-color: azure;
+    color: #fff !important;
+}
+
+.mat-menu-item a {
+    color: #01002e;
+    font-size: 18px;
     font-family: 'Roboto', sans-serif;
     font-weight: bolder;
     text-align: center;
-    padding: 0;
-    margin: 0;
+    float: none;
 }
 

@@ -1,0 +1,11 @@
+2019-10-07 20:15:07.1198 DEBUG init main
+2019-10-07 20:15:08.2579 INFO Application started. Press Ctrl+C to shut down.
+2019-10-07 20:15:08.2597 INFO Hosting environment: Development
+2019-10-07 20:15:08.2597 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-07 20:15:08.2772 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-07 20:15:08.3121 INFO Executing endpoint 'Djelato.Web.Controllers.WeatherForecastController.Get (Djelato.Web)'
+2019-10-07 20:15:08.3353 INFO Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.String Get() on controller Djelato.Web.Controllers.WeatherForecastController (Djelato.Web).
+2019-10-07 20:15:08.3415 INFO Executing ObjectResult, writing value of type 'System.String'.
+2019-10-07 20:15:08.3660 INFO Executed action Djelato.Web.Controllers.WeatherForecastController.Get (Djelato.Web) in 26.3075ms
+2019-10-07 20:15:08.3660 INFO Executed endpoint 'Djelato.Web.Controllers.WeatherForecastController.Get (Djelato.Web)'
+2019-10-07 20:15:08.3700 INFO Request finished in 93.8713ms 200 text/plain; charset=utf-8
