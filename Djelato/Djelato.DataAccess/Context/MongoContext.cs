@@ -18,7 +18,7 @@ namespace Djelato.DataAccess.Context
             _collectionName = collectionName;
         }
 
-        internal IMongoCollection<T> Object
+        internal IMongoCollection<T> Collection
         {
             get
             {

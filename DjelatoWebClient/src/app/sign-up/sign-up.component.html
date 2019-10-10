@@ -12,8 +12,7 @@
           <div class="form-input-position">
             <mat-form-field class="example-full-width"  >
               <input matInput placeholder="Name" formControlName="name" required> 
-              <mat-icon matSuffix>supervised_user_circle</mat-icon>
-    
+              <mat-icon matSuffix>supervised_user_circle</mat-icon>    
               <mat-error *ngIf="name.hasError('required')">
                   Field should be <strong>filled</strong>
               </mat-error>
@@ -27,14 +26,12 @@
             <mat-form-field class="example-full-width"  >
               <input matInput placeholder="Email" formControlName="email" required>
               <mat-icon matSuffix>email</mat-icon> 
-
               <mat-error *ngIf="email.hasError('required')">
                 Field should be <strong>filled</strong>
               </mat-error>
               <mat-error *ngIf="email.hasError('pattern')">
                   Use right <strong>email format</strong> 
               </mat-error>
-
             </mat-form-field>
           </div>
 
@@ -47,8 +44,7 @@
               </mat-error>
               <mat-error *ngIf="password.hasError('pattern')">
                 Should be <strong>minimum 8 elements, one uppercase letter, one number</strong> 
-              </mat-error>
-                                  
+              </mat-error>                                  
             </mat-form-field>
           </div>
             

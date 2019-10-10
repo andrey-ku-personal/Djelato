@@ -4,10 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Djelato.Common.Settings;
+using Djelato.DataAccess.Managers;
+using Djelato.DataAccess.Managers.Interfaces;
+using Djelato.Services.PasswordHasher;
+using Djelato.Services.Services;
+using Djelato.Services.Services.Interfaces;
 using Djelato.Web.Mapping;
 using Djelato.Web.Middleware;
+using Djelato.Web.ViewModel;
+using Djelato.Web.ViewModel.FluentApi;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
@@ -46,7 +56,23 @@ namespace Djelato.Web
 
             #endregion
 
-            services.AddControllers();
+            #region Binding
+
+            services.AddScoped<IMongoRepoManager, MongoRepoManager>();
+
+            services.AddScoped<IUserService, UserService>();
+
+            //services.AddSingleton<IHasher, Hasher>();
+
+            #endregion
+
+            services.AddControllers()
+                .AddFluentValidation(fv => 
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<UserValidator>();
+
+                    fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
 
             #region MongoSettings
 
