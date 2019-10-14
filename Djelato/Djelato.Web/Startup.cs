@@ -62,7 +62,7 @@ namespace Djelato.Web
 
             services.AddScoped<IUserService, UserService>();
 
-            //services.AddSingleton<IHasher, Hasher>();
+            services.AddSingleton<IHasher, Hasher>();
 
             #endregion
 

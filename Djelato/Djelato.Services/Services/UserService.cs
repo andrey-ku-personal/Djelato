@@ -7,6 +7,7 @@ using Djelato.Services.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,20 +18,23 @@ namespace Djelato.Services.Services
         private readonly IMongoRepoManager _manager;
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
+        private readonly IHasher _hasher;
 
-        public UserService(IMongoRepoManager manager, ILogger<UserService> logger, IMapper mapper)
+        public UserService(IMongoRepoManager manager, ILogger<UserService> logger, IMapper mapper, IHasher hasher)
         {
             _manager = manager;
             _logger = logger;
             _mapper = mapper;
+            _hasher = hasher;
         }
 
-        public async Task<ServiceResult> Add(UserModel model)
+        public async Task<ServiceResult> AddAsync(UserModel model)
         {
             User user = _mapper.Map<User>(model);
 
-            user.Salt = Hasher.GetSalt();
-            if (user.Salt == default)
+            user.Salt = _hasher.GetSalt();
+            bool isEmpty = user.Salt.All(x => x == default(byte));
+            if (isEmpty)
             {
                 _logger.LogError("Function add didn't fill in the salt");
                 _logger.LogTrace("Djelato.Services.Services.UserService.Add()");
@@ -39,8 +43,8 @@ namespace Djelato.Services.Services
                 return result;
             }
 
-            user.PasswordHash = Hasher.HashPassword(model.Password, user.Salt);
-            if (user.PasswordHash == null)
+            user.PasswordHash = _hasher.HashPassword(model.Password, user.Salt);
+            if (string.IsNullOrEmpty(user.PasswordHash))
             {
                 _logger.LogError("Function add didn't hash the password in the salt");
                 _logger.LogTrace("Djelato.Services.Services.UserService.Add()");

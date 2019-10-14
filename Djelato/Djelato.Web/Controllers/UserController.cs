@@ -42,7 +42,7 @@ namespace Djelato.Web.Controllers
                 }
 
                 UserModel model = _mapper.Map<UserModel>(dto);
-                ServiceResult addResult = await _service.Add(model);
+                ServiceResult addResult = await _service.AddAsync(model);
                 if (addResult.IsSuccessful)
                 {
                     return Ok("profile created");

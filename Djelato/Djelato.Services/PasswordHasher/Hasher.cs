@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Djelato.Services.PasswordHasher
 {
-    public class Hasher
+    public class Hasher : IHasher
     {
-        public static string HashPassword(string password, byte[] salt)
+        public string HashPassword(string password, byte[] salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
@@ -20,7 +20,7 @@ namespace Djelato.Services.PasswordHasher
             return hashed;
         }
 
-        public static byte[] GetSalt()
+        public byte[] GetSalt()
         {
             byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create())
