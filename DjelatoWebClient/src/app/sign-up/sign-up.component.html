@@ -63,7 +63,7 @@
 
           <div class="form-input-button">
             <button mat-raised-button color="primary" [disabled]="!profileForm.valid" type="submit">Submit</button>
-            <button mat-raised-button color="warn">Cancel</button>
+            <button mat-raised-button color="warn" (click)='onClose()' type="button">Cancel</button>
           </div>
 
         </form>              

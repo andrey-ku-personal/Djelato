@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { UserService } from '../Services/UserServices/user.service';
-
+import { MatDialogRef } from '@angular/material';
+import { UserModel } from '../sign-up//models/user-model'
+ 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -12,10 +13,12 @@ import { UserService } from '../Services/UserServices/user.service';
 export class SignUpComponent implements OnInit {
 
   profileForm: FormGroup;
+  model: UserModel;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<SignUpComponent>,
   ){
     this.profileForm = this.formBuilder.group({
       name: ['', [
@@ -44,8 +47,6 @@ export class SignUpComponent implements OnInit {
       this.profileForm.get("passwordConfirm").updateValueAndValidity();
     });
   }
-
-  
 
   checkPasswords(): ValidatorFn {
     return (control: FormControl): ValidationErrors => {
@@ -78,9 +79,18 @@ export class SignUpComponent implements OnInit {
     return this.profileForm.get('passwordConfirm')
   }
 
-  onSubmit() {
-    console.warn(this.profileForm.value);
-    this.userService.createUser(this.profileForm.value);    
+  onClose(){
+    this.profileForm.reset();
+    this.dialogRef.close();
   }
 
+  onSubmit() {
+    this.model = <UserModel>this.profileForm.value;
+
+
+
+    console.warn(this.profileForm.value);
+    this.userService.createUser(this.profileForm.value); 
+    this.dialogRef.close();
+  }
 }

@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,18 +11,22 @@ import { MatIconModule,
          MatMenuModule,
          MatInputModule,
          MatButtonModule,
-         ErrorStateMatcher,
-         ShowOnDirtyErrorStateMatcher
+         MatDialogModule
          } from '@angular/material';
+
+import { AppComponent } from './app.component';         
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -34,10 +37,12 @@ import { HomeComponent } from './home/home.component';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     ReactiveFormsModule,    
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SignUpComponent]
 })
 export class AppModule { }

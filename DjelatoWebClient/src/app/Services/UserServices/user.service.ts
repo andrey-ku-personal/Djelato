@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { CrudService } from '../crud.service';
+import { UserModel } from 'src/app/sign-up/models/user-model'
 
 
 @Injectable({
@@ -13,11 +14,9 @@ export class UserService {
     private crudServices: CrudService
   ) { }
 
-  header: HttpHeaders = new HttpHeaders()
-  .set('Content-type', 'application/json');
+  header: HttpHeaders = new HttpHeaders().set('Content-type', 'application/json');
 
-  createUser(body: string){
-
+  createUser(body: UserModel){
     this.crudServices.post('/api/user', body, { headers: this.header }).subscribe((data) => {
       console.log("success")
     });

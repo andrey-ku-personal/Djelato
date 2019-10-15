@@ -1,16 +1,12 @@
 .background-fone {
-    background: rgba(231, 18, 18, 0.3);
     height: 100%;
     width: 100%;
-    padding-top: 100px;
 }
   
 #signin-form {
     width: 500px;
     height: 530px;
-    border: 1px solid #01002e;
     border-radius: 10px;
-    background-color: aliceblue;
     margin: auto;    
 }
 
