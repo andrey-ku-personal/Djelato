@@ -19,6 +19,9 @@ namespace Djelato.DataAccess.Entity
         [BsonElement("Email")]
         public string Email { get; set; }
 
+        [BsonElement("EmailConfirmed")]
+        public bool EmailConfirmed { get; set; }
+
         [BsonElement("Role")]
         public Role Role { get; set; }
 

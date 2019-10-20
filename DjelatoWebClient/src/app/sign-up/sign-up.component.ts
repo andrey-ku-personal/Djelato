@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { UserService } from '../Services/UserServices/user.service';
 import { MatDialogRef } from '@angular/material';
-import { UserModel } from '../sign-up//models/user-model'
+import { UserModel } from '../sign-up//models/user-model';
+import { IResponseContent } from '../shared/models/response-content';
+import { RegexExpressions } from '../shared/regex-expressions';
  
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +16,7 @@ export class SignUpComponent implements OnInit {
 
   profileForm: FormGroup;
   model: UserModel;
+  message: string;
 
   constructor(
     private userService: UserService,
@@ -23,16 +26,16 @@ export class SignUpComponent implements OnInit {
     this.profileForm = this.formBuilder.group({
       name: ['', [
         Validators.required, 
-        Validators.pattern(/^[a-zA-Z0-9_ -]+$/)]
+        Validators.pattern(RegexExpressions.nameRgx)]
       ],
       email: ['', [
         Validators.required, 
-        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
+        Validators.pattern(RegexExpressions.emailRgx)]
       ],
   
       password: ['', [
         Validators.required,
-        Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(.{8,100})$/)]
+        Validators.pattern(RegexExpressions.passwordRgx)]
       ],
   
       passwordConfirm: ['', [
@@ -58,7 +61,7 @@ export class SignUpComponent implements OnInit {
 
       let pass = group.get("password").value;
       let confirmPass = group.get("passwordConfirm").value;
-
+ 
       return confirmPass ? pass === confirmPass ? null : { mismatch: true } : null;
     };
   }
@@ -87,10 +90,19 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.model = <UserModel>this.profileForm.value;
 
+    this.userService.createUser(this.model).subscribe((data) => {
+      console.log(data);
+    }, error => {
+      let errorContent: IResponseContent = error.error;  
 
-
-    console.warn(this.profileForm.value);
-    this.userService.createUser(this.profileForm.value); 
-    this.dialogRef.close();
+      console.log(errorContent);
+      
+      if(errorContent.isSucceeded){
+        this.dialogRef.close();       
+       }
+       else {
+        this.message = errorContent.errorMessage;
+       }       
+    });
   }
 }

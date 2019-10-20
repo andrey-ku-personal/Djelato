@@ -3,9 +3,13 @@
 
         <div class="form-name">
             <p>Registration form</p>
-        </div>
+        </div>       
 
         <hr class="form-hr"/>
+
+        <p class="server-error-message">
+          <strong>{{ message }}</strong>
+        </p>
 
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="example-form">
 
@@ -37,7 +41,7 @@
 
           <div class="form-input-position">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="password" formControlName="password">
+              <input matInput type="password" placeholder="password" formControlName="password">
               <mat-icon matSuffix>lock</mat-icon>  
               <mat-error *ngIf="password.hasError('required')">
                 Field should be <strong>filled</strong> 
@@ -50,7 +54,7 @@
             
           <div class="form-input-position">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="repeat password" formControlName="passwordConfirm">
+              <input matInput type="password" placeholder="repeat password" formControlName="passwordConfirm">
               <mat-icon matSuffix>lock</mat-icon>                     
                 <mat-error *ngIf="passwordConfirm.hasError('mismatch')">
                   Field is <strong>mismatch</strong> 

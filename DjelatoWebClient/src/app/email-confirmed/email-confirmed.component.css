@@ -1,0 +1,18 @@
+#confirm-form {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    margin: auto; 
+    border: 1px solid #0d6ac2;
+}
+
+#confirm-form p {
+    color: #00218f;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+}
+
+::ng-deep .mat-fab.mat-accent{
+    background-color: #0d6ac2 !important;
+}

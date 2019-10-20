@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
@@ -20,6 +20,5 @@ export class HeaderComponent implements OnInit {
 
   createDialog(){
     this.dialog.open(SignUpComponent, { autoFocus: false });
-
   }
 }

@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     SignUpComponent,
     LoginComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    EmailConfirmedComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,6 @@ import { HeaderComponent } from './header/header.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [SignUpComponent]
+  // entryComponents: [SignUpComponent]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@
   
 #signin-form {
     width: 500px;
-    height: 530px;
+    height: 560px;
     border-radius: 10px;
     margin: auto;    
 }
@@ -33,6 +33,17 @@
     text-shadow: none;
 }
 
+.server-error-message {
+    color: #f44336;
+    font-size: 12px;
+    font-weight: bolder;
+    margin: 0px;
+    padding: 0px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
 #signin-form .form-to-submit {
     margin: 20px 0;
 }
@@ -46,7 +57,7 @@
 }
 
 ::ng-deep .example-full-width{
-  width:400px !important;
+  width: 400px !important;
 }
 
 ::ng-deep input {

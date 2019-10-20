@@ -14,9 +14,7 @@ export class CrudService {
     private http: HttpClient
     ) { }
 
-  post(path: string, body: any, options?: any){
-
+  post(path: string, body: any, options?: any) {
     return this.http.post(`${this.url}${path}`, body, options );
-  }
-  
+  }  
 }
