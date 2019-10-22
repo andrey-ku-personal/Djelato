@@ -15,9 +15,10 @@ namespace Djelato.Web.Mapping
         {
             CreateMap<UserDTO, UserModel>()
                 .ForMember(x => x.Name, x => x.MapFrom(src => src.Name))
-                .ForMember(x => x.Email, x => x.MapFrom(src => src.Email))
+                .ForMember(x => x.Email, x => x.MapFrom(src => src.Email.ToLower().Trim()))
                 .ForMember(x => x.Role, x => x.MapFrom(src => src.Role))
-                .ForMember(x => x.Password, x => x.MapFrom(src => src.Password));
+                .ForMember(x => x.Password, x => x.MapFrom(src => src.Password))
+                .ForMember(x => x.EmailConfirmed, x => x.MapFrom(src => src.EmailConfirmed));
 
             CreateMap<User, UserModel>()
                 .ForMember(x => x.Name, x => x.MapFrom(src => src.Name))

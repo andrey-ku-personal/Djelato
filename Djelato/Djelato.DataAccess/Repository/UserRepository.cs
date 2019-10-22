@@ -1,4 +1,5 @@
 ﻿using Djelato.DataAccess.Context;
+using Djelato.DataAccess.Entity;
 using Djelato.DataAccess.Repository.Interfaces;
 using MongoDB.Driver;
 using System;
@@ -22,7 +23,6 @@ namespace Djelato.DataAccess.Repository
             await _context.Collection.InsertOneAsync(obj);
         }
 
-
         public async Task<bool> CheckAsync(string email)
         {
             FilterDefinition<T> filter = Builders<T>.Filter.Eq("Email", email);
@@ -36,6 +36,20 @@ namespace Djelato.DataAccess.Repository
             {
                 return false;
             }
+        }
+
+        public async Task<T> GetAsync(string email)
+        {
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq("Email", email);
+            T obj = await _context.Collection.Find(filter).FirstOrDefaultAsync();
+            return obj;
+        }
+
+        public async Task<ReplaceOneResult> ReplaceOneAsync(string id, T obj)
+        {
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq("Id", id);
+            ReplaceOneResult replaceResult = await _context.Collection.ReplaceOneAsync(filter, replacement: obj);
+            return replaceResult;
         }
     }
 }

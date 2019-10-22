@@ -8,8 +8,8 @@ namespace Djelato.Services.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<ServiceResult> CheckByEmailAsync(string email);
-        Task<ServiceResult> Add(UserModel model);
-
+        Task<ServiceResult> AddAsync(UserModel model);
+        public Task<bool> ConfirmEmailAsync(string email);
+        public Task<bool> CheckByEmailAsync(string email);        
     }
 }

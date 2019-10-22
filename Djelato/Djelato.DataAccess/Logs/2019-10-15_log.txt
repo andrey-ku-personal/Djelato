@@ -1,0 +1,69 @@
+2019-10-15 18:39:06.7267 DEBUG init main
+2019-10-15 18:39:11.4618 INFO Application started. Press Ctrl+C to shut down.
+2019-10-15 18:39:11.4642 INFO Hosting environment: Development
+2019-10-15 18:39:11.4642 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-15 18:39:11.4973 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-15 18:39:11.5520 INFO Request finished in 55.36ms 404 
+2019-10-15 18:39:34.5905 INFO Request starting HTTP/1.1 OPTIONS http://localhost:58111/api/user  
+2019-10-15 18:39:34.5905 INFO CORS policy execution successful.
+2019-10-15 18:39:34.5905 INFO Request finished in 8.2208ms 204 
+2019-10-15 18:39:34.6066 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user application/json 89
+2019-10-15 18:39:34.6066 INFO CORS policy execution successful.
+2019-10-15 18:39:34.6066 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:39:34.6599 INFO Route matched with {action = "Add", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddAsync(Djelato.Web.ViewModel.UserDTO) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-15 18:39:35.6385 INFO Executing ObjectResult, writing value of type 'System.String'.
+2019-10-15 18:39:35.6385 INFO Executed action Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web) in 983.1458ms
+2019-10-15 18:39:35.6385 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:39:35.6385 INFO Request finished in 1040.8455000000001ms 400 text/plain; charset=utf-8
+2019-10-15 18:40:18.8912 INFO Request starting HTTP/1.1 GET http://localhost:58111/api/user  
+2019-10-15 18:40:18.8912 INFO Executing endpoint '405 HTTP Method Not Supported'
+2019-10-15 18:40:18.8912 INFO Executed endpoint '405 HTTP Method Not Supported'
+2019-10-15 18:40:18.8912 INFO Request finished in 3.1901ms 405 
+2019-10-15 18:42:34.7272 INFO Request starting HTTP/1.1 OPTIONS http://localhost:58111/api/user  
+2019-10-15 18:42:34.7272 INFO CORS policy execution successful.
+2019-10-15 18:42:34.7305 INFO Request finished in 3.4441ms 204 
+2019-10-15 18:42:34.7472 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user application/json 86
+2019-10-15 18:42:34.7472 INFO CORS policy execution successful.
+2019-10-15 18:42:34.7472 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:42:34.7472 INFO Route matched with {action = "Add", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddAsync(Djelato.Web.ViewModel.UserDTO) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-15 18:42:34.7652 INFO Executing ObjectResult, writing value of type 'System.String'.
+2019-10-15 18:42:34.7652 INFO Executed action Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web) in 16.2709ms
+2019-10-15 18:42:34.7652 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:42:34.7652 INFO Request finished in 19.1472ms 400 text/plain; charset=utf-8
+2019-10-15 18:44:52.9911 INFO Request starting HTTP/1.1 OPTIONS http://localhost:58111/api/user  
+2019-10-15 18:44:52.9911 INFO CORS policy execution successful.
+2019-10-15 18:44:52.9911 INFO Request finished in 3.6975000000000002ms 204 
+2019-10-15 18:44:53.0485 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user application/json 88
+2019-10-15 18:44:53.0485 INFO CORS policy execution successful.
+2019-10-15 18:44:53.0485 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:44:53.0485 INFO Route matched with {action = "Add", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddAsync(Djelato.Web.ViewModel.UserDTO) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-15 18:44:53.1013 INFO Executing ObjectResult, writing value of type 'System.String'.
+2019-10-15 18:44:53.1013 INFO Executed action Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web) in 51.3933ms
+2019-10-15 18:44:53.1013 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:44:53.1013 INFO Request finished in 53.9241ms 400 text/plain; charset=utf-8
+2019-10-15 18:45:42.9110 DEBUG init main
+2019-10-15 18:45:44.1680 INFO Application started. Press Ctrl+C to shut down.
+2019-10-15 18:45:44.1680 INFO Hosting environment: Development
+2019-10-15 18:45:44.1680 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-15 18:45:44.2048 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-15 18:45:44.2624 INFO Request finished in 58.370900000000006ms 404 
+2019-10-15 18:46:34.8767 INFO Request starting HTTP/1.1 OPTIONS http://localhost:58111/api/user  
+2019-10-15 18:46:34.8988 INFO CORS policy execution successful.
+2019-10-15 18:46:34.9062 INFO Request finished in 30.617ms 204 
+2019-10-15 18:46:34.9200 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user application/json 87
+2019-10-15 18:46:34.9200 INFO CORS policy execution successful.
+2019-10-15 18:46:34.9200 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:46:34.9810 INFO Route matched with {action = "Add", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddAsync(Djelato.Web.ViewModel.UserDTO) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-15 18:48:58.8745 DEBUG init main
+2019-10-15 18:48:59.9538 INFO Application started. Press Ctrl+C to shut down.
+2019-10-15 18:48:59.9538 INFO Hosting environment: Development
+2019-10-15 18:48:59.9538 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-15 18:48:59.9729 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-15 18:49:00.0206 INFO Request finished in 48.419900000000005ms 404 
+2019-10-15 18:49:50.0161 INFO Request starting HTTP/1.1 OPTIONS http://localhost:58111/api/user  
+2019-10-15 18:49:50.0161 INFO CORS policy execution successful.
+2019-10-15 18:49:50.0290 INFO Request finished in 12.9608ms 204 
+2019-10-15 18:49:50.0441 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user application/json 82
+2019-10-15 18:49:50.0441 INFO CORS policy execution successful.
+2019-10-15 18:49:50.0441 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
+2019-10-15 18:49:50.0997 INFO Route matched with {action = "Add", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddAsync(Djelato.Web.ViewModel.UserDTO) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
