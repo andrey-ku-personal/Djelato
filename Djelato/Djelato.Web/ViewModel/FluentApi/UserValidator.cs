@@ -24,7 +24,7 @@ namespace Djelato.Web.ViewModel.FluentApi
             RuleFor(u => u.Password).NotNull().WithMessage("Password field should be fill in");
             RuleFor(u => u.Password).Matches(RegexExpressions.PasswordRgx).WithMessage("Should be minimum 8 elements, one uppercase letter, one number");
 
-            RuleFor(u => u.ConfirmPassword).Equal(pas => pas.Password).WithMessage("Confirm field is mismatch");
+            RuleFor(u => u.PasswordConfirm).Equal(pas => pas.Password).WithMessage("Confirm field is mismatch");
 
             RuleFor(u => u.Role).IsInEnum<UserDTO, Role>().WithMessage("Role is incorrect");
         }

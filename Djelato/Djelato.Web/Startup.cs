@@ -6,6 +6,8 @@ using AutoMapper;
 using Djelato.Common.Settings;
 using Djelato.DataAccess.Managers;
 using Djelato.DataAccess.Managers.Interfaces;
+using Djelato.DataAccess.Repository;
+using Djelato.DataAccess.Repository.Interfaces;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services;
 using Djelato.Services.Services.Interfaces;
@@ -26,6 +28,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using StackExchange.Redis;
 
 namespace Djelato.Web
 {
@@ -62,12 +65,16 @@ namespace Djelato.Web
 
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IEmailService, EmailService>();
+
             services.AddSingleton<IHasher, Hasher>();
+
+            services.AddScoped<IRedisRepository, RedisRepository>();
 
             #endregion
 
             services.AddControllers()
-                .AddFluentValidation(fv => 
+                .AddFluentValidation(fv =>
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<UserValidator>();
 
@@ -110,8 +117,39 @@ namespace Djelato.Web
                 options.InvalidModelStateResponseFactory = actionContext =>
                 {
                     var modelStateError = actionContext.ModelState.FirstOrDefault(m => m.Value.ValidationState == ModelValidationState.Invalid);
-                    return new BadRequestObjectResult(modelStateError.Value.Errors.First().ErrorMessage);
+                    KeyValuePair<string, string> error;
+                    error = (modelStateError.Equals(default(KeyValuePair<string, ModelStateEntry>)))
+                    ? new KeyValuePair<string, string>()
+                    : new KeyValuePair<string, string>(
+                        modelStateError.Key,
+                        modelStateError.Value.Errors.First().ErrorMessage ?? "the input was not valid"
+                        );
+                    return new BadRequestObjectResult(error);
                 };
+            });
+
+            #endregion
+
+            #region MailKit
+
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
+            #endregion
+
+            #region Redis
+
+            services.Configure<RedisSettings>(options =>
+            {
+                options.Host = Configuration.GetSection("RedisConnection:Host").Value;
+                options.Port = Configuration.GetSection("RedisConnection:Port").Value;
+            });
+
+            services.AddScoped<IConnectionMultiplexer>(provider =>
+            {
+                var settings = provider.GetService<IOptions<RedisSettings>>();
+
+                IConnectionMultiplexer redisCient = ConnectionMultiplexer.Connect($"{settings.Value.Host}:{settings.Value.Port}");
+                return redisCient;
             });
 
             #endregion

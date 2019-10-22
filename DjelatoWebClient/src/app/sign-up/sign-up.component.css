@@ -1,16 +1,12 @@
 .background-fone {
-    background: rgba(231, 18, 18, 0.3);
     height: 100%;
     width: 100%;
-    padding-top: 100px;
 }
   
 #signin-form {
     width: 500px;
-    height: 530px;
-    border: 1px solid #01002e;
+    height: 560px;
     border-radius: 10px;
-    background-color: aliceblue;
     margin: auto;    
 }
 
@@ -37,6 +33,17 @@
     text-shadow: none;
 }
 
+.server-error-message {
+    color: #f44336;
+    font-size: 12px;
+    font-weight: bolder;
+    margin: 0px;
+    padding: 0px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
 #signin-form .form-to-submit {
     margin: 20px 0;
 }
@@ -50,7 +57,7 @@
 }
 
 ::ng-deep .example-full-width{
-  width:400px !important;
+  width: 400px !important;
 }
 
 ::ng-deep input {

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { UserService } from '../Services/UserServices/user.service';
-
+import { MatDialogRef } from '@angular/material';
+import { UserModel } from '../sign-up//models/user-model';
+import { IResponseContent } from '../shared/models/response-content';
+import { RegexExpressions } from '../shared/regex-expressions';
+ 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -12,24 +15,27 @@ import { UserService } from '../Services/UserServices/user.service';
 export class SignUpComponent implements OnInit {
 
   profileForm: FormGroup;
+  model: UserModel;
+  message: string;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<SignUpComponent>
   ){
     this.profileForm = this.formBuilder.group({
       name: ['', [
         Validators.required, 
-        Validators.pattern(/^[a-zA-Z0-9_ -]+$/)]
+        Validators.pattern(RegexExpressions.nameRgx)]
       ],
       email: ['', [
         Validators.required, 
-        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]
+        Validators.pattern(RegexExpressions.emailRgx)]
       ],
   
       password: ['', [
         Validators.required,
-        Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(.{8,100})$/)]
+        Validators.pattern(RegexExpressions.passwordRgx)]
       ],
   
       passwordConfirm: ['', [
@@ -45,8 +51,6 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  
-
   checkPasswords(): ValidatorFn {
     return (control: FormControl): ValidationErrors => {
       const group = control.parent as FormGroup;
@@ -57,7 +61,7 @@ export class SignUpComponent implements OnInit {
 
       let pass = group.get("password").value;
       let confirmPass = group.get("passwordConfirm").value;
-
+ 
       return confirmPass ? pass === confirmPass ? null : { mismatch: true } : null;
     };
   }
@@ -78,9 +82,25 @@ export class SignUpComponent implements OnInit {
     return this.profileForm.get('passwordConfirm')
   }
 
-  onSubmit() {
-    console.warn(this.profileForm.value);
-    this.userService.createUser(this.profileForm.value);    
+  onClose(){
+    this.dialogRef.close();
   }
 
+  onSubmit() {
+    this.model = <UserModel>this.profileForm.value;
+
+    this.userService.createUser(this.model).subscribe((data: IResponseContent) => {
+      console.log(data);
+
+      if (data.isSucceeded){
+        this.dialogRef.close();
+      }
+
+    }, (error) => {
+      let errorContent: IResponseContent = error.error;        
+      if (!errorContent.isSucceeded){
+        this.message = errorContent.errorMessage;
+      }      
+    });
+  }
 }

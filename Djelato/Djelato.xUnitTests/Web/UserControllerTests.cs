@@ -156,7 +156,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "Test@mail.ru",
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -167,7 +167,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "",
                         Email = "Test@mail.ru",
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -178,7 +178,7 @@ namespace Djelato.xUnitTests.Web
                         Name = null,
                         Email = "Test@mail.ru",
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -189,7 +189,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "",
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -200,7 +200,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = null,
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -211,7 +211,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "aasd@asd",
                         Password = "1234567A",
-                        ConfirmPassword = "1234567A"
+                        PasswordConfirm = "1234567A"
                     }
                 },
 
@@ -222,7 +222,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "Test@mail.ru",
                         Password = "",
-                        ConfirmPassword = ""
+                        PasswordConfirm = ""
                     }
                 },
 
@@ -233,7 +233,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "Test@mail.ru",
                         Password = null,
-                        ConfirmPassword = null
+                        PasswordConfirm = null
                     }
                 },
 
@@ -244,7 +244,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "Test@mail.ru",
                         Password = "123",
-                        ConfirmPassword = "123"
+                        PasswordConfirm = "123"
                     }
                 },
 
@@ -255,7 +255,7 @@ namespace Djelato.xUnitTests.Web
                         Name = "Test",
                         Email = "Test@mail.ru",
                         Password = "1234567A",
-                        ConfirmPassword = "1234"
+                        PasswordConfirm = "1234"
                     }
                 },
 
