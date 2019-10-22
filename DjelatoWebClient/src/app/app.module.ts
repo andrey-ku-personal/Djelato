@@ -14,8 +14,7 @@ import { MatIconModule,
          MatDialogModule
          } from '@angular/material';
 
-import { AppComponent } from './app.component';         
-import { LoginComponent } from './login/login.component';
+import { AppComponent } from './app.component';   
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,7 +24,6 @@ import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.compo
   declarations: [
     AppComponent,
     SignUpComponent,
-    LoginComponent,
     HomeComponent,
     HeaderComponent,
     EmailConfirmedComponent
@@ -45,6 +43,6 @@ import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.compo
   ],
   providers: [],
   bootstrap: [AppComponent],
-  // entryComponents: [SignUpComponent]
+  entryComponents: [EmailConfirmedComponent]
 })
 export class AppModule { }

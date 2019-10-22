@@ -1,11 +1,7 @@
 <div id="confirm-form">
     <p>
-        <strong>Your email confirmed.</strong> <br/>
-        Welcome to Djelato Would you like to sign in?
+        {{confirmMessage.message}}        
     </p>
 
-    <div id="confirm-form-buttons">
-        <button mat-fab>Basic</button>
-        <button mat-fab color="warn">Warn</button>
-    </div>
+    <button mat-fab (click)='onClose()' type="button">Ok</button>
 </div>

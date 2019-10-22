@@ -61,7 +61,7 @@ namespace Djelato.Web.Controllers
                 await _emailSender.CreateNotification(dto.Email, key);
                  
                 bool isCache = await _redis.SetAsync(key.ToString(), dto.Email);
-                if (!isCache)
+                if (isCache)
                 {
                     var result = Success(null, "Profile created");
                     return result;
@@ -107,7 +107,7 @@ namespace Djelato.Web.Controllers
                 if (!matchKey.Success)
                 {
                     _logger.LogInformation($"confirm key is not the Guid type");
-                    var result = ClientError("Email doesn't confirm wrong link to confirm");
+                    var result = ClientError("Email didn't confirm. You use uncorrect link!");
                     return result;
                 }
 
@@ -125,7 +125,7 @@ namespace Djelato.Web.Controllers
 
                 if (isConfirmed)
                 {
-                    var result = Success(null, "Your email wos confirmed. Thank you for your time!");
+                    var result = Success(null, "Your email was confirmed. Welcome to our ice-cream family!");
                     return result;
                 }
                 else

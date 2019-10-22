@@ -3,16 +3,26 @@
     height: 200px;
     border-radius: 10px;
     margin: auto; 
-    border: 1px solid #0d6ac2;
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
 
 #confirm-form p {
     color: #00218f;
     font-size: 18px;
     text-align: center;
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Roboto', sans-serif;
+}
+
+#confirm-form button {
+    margin-top: 20px;
 }
 
 ::ng-deep .mat-fab.mat-accent{
-    background-color: #0d6ac2 !important;
+    background-color: #09dd1b !important;
 }

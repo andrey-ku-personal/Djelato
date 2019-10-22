@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<SignUpComponent>,
+    public dialogRef: MatDialogRef<SignUpComponent>
   ){
     this.profileForm = this.formBuilder.group({
       name: ['', [
@@ -83,26 +83,24 @@ export class SignUpComponent implements OnInit {
   }
 
   onClose(){
-    this.profileForm.reset();
     this.dialogRef.close();
   }
 
   onSubmit() {
     this.model = <UserModel>this.profileForm.value;
 
-    this.userService.createUser(this.model).subscribe((data) => {
+    this.userService.createUser(this.model).subscribe((data: IResponseContent) => {
       console.log(data);
-    }, error => {
-      let errorContent: IResponseContent = error.error;  
 
-      console.log(errorContent);
-      
-      if(errorContent.isSucceeded){
-        this.dialogRef.close();       
-       }
-       else {
+      if (data.isSucceeded){
+        this.dialogRef.close();
+      }
+
+    }, (error) => {
+      let errorContent: IResponseContent = error.error;        
+      if (!errorContent.isSucceeded){
         this.message = errorContent.errorMessage;
-       }       
+      }      
     });
   }
 }

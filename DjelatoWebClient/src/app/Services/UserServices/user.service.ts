@@ -13,11 +13,11 @@ export class UserService {
     private crudServices: CrudService
   ) { }
 
-  createUser(body: UserModel){
-    return this.crudServices.post('/api/user', body, { observe: 'response' });
+  createUser(body: UserModel) {
+    return this.crudServices.post('/api/user', body);
   }
 
-  sentConfirmKey(body: string){
+  sentConfirmKey(body: string) {
     return this.crudServices.post(`/api/user/confirmEmail/${body}`, null);
   }
 }
