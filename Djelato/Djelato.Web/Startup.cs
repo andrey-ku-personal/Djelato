@@ -8,6 +8,7 @@ using Djelato.DataAccess.Managers;
 using Djelato.DataAccess.Managers.Interfaces;
 using Djelato.DataAccess.Repository;
 using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.Services.Notification;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services;
 using Djelato.Services.Services.Interfaces;
@@ -65,7 +66,7 @@ namespace Djelato.Web
 
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<INotifier, ConcreteEmailNotifier>();
 
             services.AddSingleton<IHasher, Hasher>();
 

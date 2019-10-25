@@ -25,6 +25,9 @@ namespace Djelato.DataAccess.Entity
         [BsonElement("Role")]
         public Role Role { get; set; }
 
+        [BsonElement("PhoneNumber")]
+        public string PhoneNumber { get; set; }
+
         [BsonElement("Salt")]
         public byte[] Salt { get; set; }
 

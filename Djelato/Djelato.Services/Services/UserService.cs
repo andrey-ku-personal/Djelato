@@ -84,7 +84,10 @@ namespace Djelato.Services.Services
             }
 
             var user = await _userManager.UserManager.GetAsync(email);
-            user.EmailConfirmed = true;
+            if (!user.EmailConfirmed)
+            {
+                user.EmailConfirmed = true;
+            }            
 
             var replaceResult = await _userManager.UserManager.ReplaceOneAsync(user.Id, user);
             if (!replaceResult.IsAcknowledged)
@@ -109,8 +112,5 @@ namespace Djelato.Services.Services
                 return false;
             }
         }
-
-        
-
     }
 }

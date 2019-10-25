@@ -1,5 +1,4 @@
 ﻿using Djelato.Common.Settings;
-using Djelato.Services.Services.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -8,17 +7,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Djelato.Services.Services
+namespace Djelato.Services.Notification
 {
-    public class EmailService : IEmailService
+    public class ConcreteEmailNotifier : INotifier
     {
         private readonly EmailSettings _settings;
-        public EmailService(IOptions<EmailSettings> settings)
+        public ConcreteEmailNotifier(IOptions<EmailSettings> settings)
         {
             _settings = settings.Value;
         }
 
-        public async Task CreateNotification(string email, Guid key)
+        public async Task SendKey(string email, int key)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_settings.Sender, _settings.Sender));
@@ -29,8 +28,9 @@ namespace Djelato.Services.Services
 
             builder.HtmlBody = string.Format(@"<p>Nice to meet you</p>
 <p>We glad to see you in Djelato company website. We send you the link to confirm the password</p>
+please copy this <strong>{0}</strong> code to form to confirm an account or click the link <br/>
 <a href=""http://localhost:4200/home/{0}"">Click here</a>
-<p>Yhank you for your time, Djelato administration</p
+<p>Thank you for your time, Djelato administration</p>
 ", key);
 
 

@@ -7,6 +7,7 @@ using AutoMapper;
 using Djelato.Common.Shared;
 using Djelato.DataAccess.Repository.Interfaces;
 using Djelato.Services.Models;
+using Djelato.Services.Notification;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.ViewModel;
 using Microsoft.AspNetCore.Cors;
@@ -24,15 +25,15 @@ namespace Djelato.Web.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IMapper _mapper;
         private readonly IUserService _service;
-        private readonly IEmailService _emailSender;
+        private readonly INotifier _emailNotifier;
         private readonly IRedisRepository _redis;
 
-        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService service, IEmailService emailSender, IRedisRepository redis)
+        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService service, INotifier emailNotifier, IRedisRepository redis)
         {
             _logger = logger;
             _mapper = mapper;
             _service = service;
-            _emailSender = emailSender;
+            _emailNotifier = emailNotifier;
             _redis = redis;
         }
 
@@ -57,8 +58,8 @@ namespace Djelato.Web.Controllers
                     return result;
                 }
 
-                var key = Guid.NewGuid();
-                await _emailSender.CreateNotification(dto.Email, key);
+                var key = RandomStuff.RandomNumber(1, 1000000);
+                await _emailNotifier.SendKey(dto.Email, key);
                  
                 bool isCache = await _redis.SetAsync(key.ToString(), dto.Email);
                 if (isCache)
@@ -89,7 +90,7 @@ namespace Djelato.Web.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"When user: -{dto.Name}- tried to create new profile, appeared the exception: {ex.Source}");
-                _logger.LogInformation($"Code message for this error: {ex.Message}");
+                _logger.LogError($"Code message for this error: {ex.Message}");
                 _logger.LogTrace($"Trace for error: {ex.StackTrace}");
 
                 var result = ServerError();

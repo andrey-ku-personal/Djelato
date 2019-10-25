@@ -20,6 +20,10 @@ namespace Djelato.Web.ViewModel.FluentApi
             RuleFor(u => u.Email).NotNull().WithMessage("Email field should be fill in");
             RuleFor(u => u.Email).Matches(RegexExpressions.EmailRgx).WithMessage("Email has incorrect format");
 
+            RuleFor(u => u.PhoneNumber).NotEmpty().WithMessage("Phone number field cant be empty");
+            RuleFor(u => u.PhoneNumber).NotNull().WithMessage("Phone number field should be fill in");
+            RuleFor(u => u.PhoneNumber).Matches(RegexExpressions.PhoneRgx).WithMessage("Phone number has incorrect format");
+
             RuleFor(u => u.Password).NotEmpty().WithMessage("Password field cant be empty");
             RuleFor(u => u.Password).NotNull().WithMessage("Password field should be fill in");
             RuleFor(u => u.Password).Matches(RegexExpressions.PasswordRgx).WithMessage("Should be minimum 8 elements, one uppercase letter, one number");
