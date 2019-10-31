@@ -60,7 +60,4 @@ export class ConfirmEmailPopupComponent implements OnInit {
   onClose(){
     this.dialogRef.close();
   }
-
-  
-
 }

@@ -18,10 +18,7 @@ export class ConfirmEmailComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(
-    ) {
-      // this.openDialog();
-    }
+  ngOnInit() { }
   
     openDialog(){
       const dialogRef =  this.dialog.open(ConfirmEmailPopupComponent, {
