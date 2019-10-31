@@ -1,13 +1,22 @@
-.background-fone {
-    height: 100%;
-    width: 100%;
-}
-  
 #signin-form {
     width: 500px;
-    height: 560px;
+    height: 640px;
     border-radius: 10px;
-    margin: auto;    
+    margin: auto;  
+    overflow: auto;
+}
+
+@media (max-width: 700px) and (min-width: 520px) {
+    #signin-form {
+        width: 350px;
+    }
+}
+
+@media (max-width: 519px) {
+    #signin-form {
+        height: 740px;
+        width: 220px;
+    }
 }
 
 .form-name {
@@ -31,6 +40,12 @@
     border-bottom: 5px solid #00218f;
     border-radius: 5px;
     text-shadow: none;
+}
+
+@media (max-width: 700px) {
+    #signin-form hr {
+        width: 150px;
+    }
 }
 
 .server-error-message {
@@ -60,6 +75,18 @@
   width: 400px !important;
 }
 
+@media (max-width: 700px) and (min-width: 520px) {
+    ::ng-deep .example-full-width{
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 519px) {
+    ::ng-deep .example-full-width{
+        width: 150px !important;
+    }
+}
+
 ::ng-deep input {
     color: black !important;
     font-family: 'Courgette', cursive;
@@ -80,6 +107,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+
+@media (max-width: 519px) {
+    .form-input-button {
+        flex-direction: column;
+    }
 }
 
 .form-input-button button {

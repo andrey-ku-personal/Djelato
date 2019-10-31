@@ -1,0 +1,36 @@
+2019-10-29 09:39:01.4173 DEBUG init main
+2019-10-29 09:39:04.5847 INFO Application started. Press Ctrl+C to shut down.
+2019-10-29 09:39:04.5847 INFO Hosting environment: Development
+2019-10-29 09:39:04.5899 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-29 09:39:04.6657 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-29 09:39:04.7375 INFO Request finished in 73.7275ms 404 
+2019-10-29 09:39:23.7502 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/123456  0
+2019-10-29 09:39:23.7502 INFO CORS policy execution successful.
+2019-10-29 09:39:23.7502 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-29 09:39:23.8018 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-29 09:39:25.4020 ERROR Redis return empty or null eamil value
+2019-10-29 09:39:25.8022 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-29 09:39:25.8189 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 2011.9592ms
+2019-10-29 09:39:25.8189 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-29 09:39:26.0395 INFO Request finished in 2289.9935ms 400 application/json
+2019-10-29 09:39:43.0985 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/123456  0
+2019-10-29 09:39:43.0985 INFO CORS policy execution successful.
+2019-10-29 09:39:43.0985 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-29 09:39:43.0985 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-29 09:39:43.1286 ERROR Redis return empty or null eamil value
+2019-10-29 09:39:43.1286 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-29 09:39:43.1286 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 29.004900000000003ms
+2019-10-29 09:39:43.1286 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-29 09:39:43.3093 INFO Request finished in 211.1023ms 400 application/json
+2019-10-29 15:01:46.3799 DEBUG init main
+2019-10-29 15:01:52.0902 INFO Application started. Press Ctrl+C to shut down.
+2019-10-29 15:01:52.0902 INFO Hosting environment: Development
+2019-10-29 15:01:52.1043 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-29 15:01:52.1669 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-29 15:01:52.2584 INFO Request finished in 92.28150000000001ms 404 
+2019-10-29 18:02:24.1618 DEBUG init main
+2019-10-29 18:02:26.1202 INFO Application started. Press Ctrl+C to shut down.
+2019-10-29 18:02:26.1202 INFO Hosting environment: Development
+2019-10-29 18:02:26.1359 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-29 18:02:26.1606 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-29 18:02:26.2257 INFO Request finished in 66.2874ms 404 

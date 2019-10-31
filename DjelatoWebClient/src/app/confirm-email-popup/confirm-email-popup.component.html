@@ -1,0 +1,28 @@
+
+<div id="confirm-popup">
+    <mat-icon matSuffix (click)='onClose()' id="close-icon">close</mat-icon>
+        
+    <p id="popup-title">
+        <strong>We send you a key.</strong> <br/>        
+        <strong>Please, copy the key into the field</strong> <br/> 
+        <span>{{message}}</span>
+    </p>
+    <form [formGroup]="keyForm" (ngSubmit)="onSubmit()" id="key-form">
+        <mat-form-field class="example-full-width"  >
+            <input matInput placeholder="confirm key" [formControl]="key" required> 
+              
+            <mat-error *ngIf="key.hasError('required')">
+                Field should be <strong>filled</strong>
+            </mat-error>
+            <mat-error *ngIf="key.hasError('pattern')">
+                <strong>Your key is wrong</strong> 
+            </mat-error>    
+        </mat-form-field>      
+        
+        
+        <button mat-fab [disabled]="!keyForm.valid" type="submit" id="submit-btn">Ok</button>    
+    </form>    
+    
+</div>
+
+

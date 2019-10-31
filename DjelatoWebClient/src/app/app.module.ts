@@ -18,7 +18,9 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ConfirmEmailPopupComponent } from './confirm-email-popup/confirm-email-popup.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.compo
     SignUpComponent,
     HomeComponent,
     HeaderComponent,
-    EmailConfirmedComponent
+    ConfirmEmailComponent,
+    ConfirmEmailPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +42,11 @@ import { EmailConfirmedComponent } from './email-confirmed/email-confirmed.compo
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule,    
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [EmailConfirmedComponent]
+  entryComponents: [ConfirmEmailPopupComponent]
 })
 export class AppModule { }

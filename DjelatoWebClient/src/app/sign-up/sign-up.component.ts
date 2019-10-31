@@ -23,6 +23,10 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<SignUpComponent>
   ){
+    this.profileInitForm();
+  }
+
+  profileInitForm(){
     this.profileForm = this.formBuilder.group({
       name: ['', [
         Validators.required, 
@@ -31,6 +35,11 @@ export class SignUpComponent implements OnInit {
       email: ['', [
         Validators.required, 
         Validators.pattern(RegexExpressions.emailRgx)]
+      ],
+
+      phoneNumber: ['', [
+        Validators.required, 
+        Validators.pattern(RegexExpressions.phoneNumber)]
       ],
   
       password: ['', [
@@ -71,6 +80,10 @@ export class SignUpComponent implements OnInit {
   }
 
   get email(){
+    return this.profileForm.get('email');
+  }
+
+  get phoneNumber(){
     return this.profileForm.get('email');
   }
 

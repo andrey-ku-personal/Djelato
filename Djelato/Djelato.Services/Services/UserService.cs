@@ -87,7 +87,7 @@ namespace Djelato.Services.Services
             if (!user.EmailConfirmed)
             {
                 user.EmailConfirmed = true;
-            }            
+            }
 
             var replaceResult = await _userManager.UserManager.ReplaceOneAsync(user.Id, user);
             if (!replaceResult.IsAcknowledged)

@@ -249,3 +249,41 @@
 2019-10-25 13:57:20.9662 INFO Executed action Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web) in 13780.455300000001ms
 2019-10-25 13:57:20.9662 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.AddAsync (Djelato.Web)'
 2019-10-25 13:57:21.2764 INFO Request finished in 14146.105000000001ms 200 application/json
+2019-10-25 16:57:25.7886 DEBUG init main
+2019-10-25 16:57:30.2650 INFO Application started. Press Ctrl+C to shut down.
+2019-10-25 16:57:30.2760 INFO Hosting environment: Development
+2019-10-25 16:57:30.2994 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-10-25 16:57:30.3713 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-10-25 16:57:30.4379 INFO Request finished in 67.7729ms 404 
+2019-10-25 17:01:24.3219 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/aaa  0
+2019-10-25 17:01:24.3473 INFO CORS policy execution successful.
+2019-10-25 17:01:24.3473 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:01:24.4542 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-25 17:01:26.0857 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-25 17:01:26.0981 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 1640.1109000000001ms
+2019-10-25 17:01:26.0981 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:01:26.3854 INFO Request finished in 2064.7984ms 400 application/json
+2019-10-25 17:01:43.8788 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/aaa  0
+2019-10-25 17:01:43.8788 INFO CORS policy execution successful.
+2019-10-25 17:01:43.8788 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:01:43.8848 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-25 17:01:43.9625 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-25 17:01:43.9634 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 78.2459ms
+2019-10-25 17:01:43.9634 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:01:44.0467 INFO Request finished in 168.1123ms 400 application/json
+2019-10-25 17:02:38.9904 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/aaa  0
+2019-10-25 17:02:38.9904 INFO CORS policy execution successful.
+2019-10-25 17:02:38.9904 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:02:38.9944 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-25 17:02:39.0375 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-25 17:02:39.0375 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 43.6559ms
+2019-10-25 17:02:39.0375 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:02:39.1293 INFO Request finished in 139.06310000000002ms 400 application/json
+2019-10-25 17:02:43.9778 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/user/confirmEmail/aaa  0
+2019-10-25 17:02:43.9808 INFO CORS policy execution successful.
+2019-10-25 17:02:43.9808 INFO Executing endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:02:43.9808 INFO Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmailAsync(System.String) on controller Djelato.Web.Controllers.UserController (Djelato.Web).
+2019-10-25 17:02:44.0214 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-10-25 17:02:44.0214 INFO Executed action Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web) in 37.092400000000005ms
+2019-10-25 17:02:44.0214 INFO Executed endpoint 'Djelato.Web.Controllers.UserController.ConfirmEmailAsync (Djelato.Web)'
+2019-10-25 17:02:44.1041 INFO Request finished in 126.39420000000001ms 400 application/json

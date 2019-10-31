@@ -17,7 +17,7 @@ export class UserService {
     return this.crudServices.post('/api/user', body);
   }
 
-  sentConfirmKey(body: string) {
+  sentConfirmKey(body: number) {
     return this.crudServices.post(`/api/user/confirmEmail/${body}`, null);
   }
 }

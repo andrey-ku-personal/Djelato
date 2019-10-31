@@ -104,11 +104,11 @@ namespace Djelato.Web.Controllers
         {
             try
             {
-                Match matchKey = Regex.Match(key, RegexExpressions.GuidKeyRgx, RegexOptions.IgnoreCase);
+                Match matchKey = Regex.Match(key, RegexExpressions.KeyRgx, RegexOptions.IgnoreCase);
                 if (!matchKey.Success)
                 {
                     _logger.LogInformation($"confirm key is not the Guid type");
-                    var result = ClientError("Email didn't confirm. You use uncorrect link!");
+                    var result = ClientError("Email didn't confirm. You use uncorrect key!");
                     return result;
                 }
 
@@ -118,7 +118,7 @@ namespace Djelato.Web.Controllers
                     _logger.LogError($"Redis return empty or null eamil value");
                     _logger.LogTrace($"Trace for error: Djelato.Web.Controllers.CondirmEmailAsync()");
 
-                    var result = ServerError();
+                    var result = ClientError("Email didn't confirm. You use uncorrect key!");
                     return result;
                 }
 

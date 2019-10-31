@@ -1,0 +1,77 @@
+#confirm-popup {
+    width: 400px;
+    height: 320px;
+    border-radius: 10px;
+    margin: 0px !important;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media(max-width: 520px){
+    #confirm-popup {
+        width: auto;
+        height: auto;
+        padding: 20px 0px;
+    }
+}
+
+#confirm-popup #popup-title {
+    color: #00218f;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 45px 0px 0px 0px ;
+}
+
+#confirm-popup #popup-title span {
+    color: maroon;
+    font-size: 12px;
+}
+
+#confirm-popup form {
+    margin-top: 30px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#confirm-popup form button {
+    margin-top: 30px;
+}
+
+::ng-deep .example-full-width{
+    width: 200px !important;
+}
+
+@media (max-width: 520px) {
+    ::ng-deep .example-full-width{
+        width: 150px !important;
+    }
+}
+
+::ng-deep .mat-fab{
+    background-color: #09dd1b !important;
+}
+
+::ng-deep .mat-fab:disabled{
+    background-color: #ff07076e !important;
+    color: white !important;
+}
+
+#close-icon {
+    margin: 0px ;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    color: #000000a6;
+    cursor: pointer;
+}
+
+::ng-deep .mat-flat-button {
+    background-color: #09dd1b;
+}

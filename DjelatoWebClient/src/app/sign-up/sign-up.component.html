@@ -40,6 +40,19 @@
           </div>
 
           <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Phone number" formControlName="phoneNumber" required>
+              <mat-icon matSuffix>email</mat-icon> 
+              <mat-error *ngIf="phoneNumber.hasError('required')">
+                Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="phoneNumber.hasError('pattern')">
+                  Use right <strong>Use only numbers, please</strong> 
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-input-position">
             <mat-form-field class="example-full-width">
               <input matInput type="password" placeholder="password" formControlName="password">
               <mat-icon matSuffix>lock</mat-icon>  
