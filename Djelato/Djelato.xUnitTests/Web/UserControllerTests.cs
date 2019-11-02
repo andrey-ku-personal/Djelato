@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Djelato.Common.Entity;
+using Djelato.DataAccess.Repository.Interfaces;
 using Djelato.Services.Models;
+using Djelato.Services.Notification;
 using Djelato.Services.Services;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.Controllers;
@@ -23,87 +25,171 @@ namespace Djelato.xUnitTests.Web
         private readonly Mock<IUserService> _mockUserService;
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<ILogger<UserController>> _mockLogger;
+        private readonly Mock<INotifier> _mockEmailNotifier;
+        private readonly Mock<IRedisRepository> _mockRedis;
+        private readonly UserController _controller;
+
+        private readonly UserDTO _correctEmail;
 
         public UserControllerTests()
         {
             _mockUserService = new Mock<IUserService>();
             _mockMapper = new Mock<IMapper>();
             _mockLogger = new Mock<ILogger<UserController>>();
+            _mockEmailNotifier = new Mock<INotifier>();
+            _mockRedis = new Mock<IRedisRepository>();
+            _controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object, _mockEmailNotifier.Object, _mockRedis.Object);
+
+            _correctEmail = new UserDTO() { Email = "exist@mail.com" };
         }
 
         #region Add Async
 
         [Fact]
-        public async Task Should_ReturnBadRequest_When_EamilNotUniqueAsync()
+        public async Task Should_ReturnStatus400_When_EamilNotUniqueAsync()
         {
             //Arrange
-            UserController controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object);
-            UserDTO dto = new UserDTO()
-            {
-                Email = "exist@mail.com"
-            };
-
-            var serviceResult = new ServiceResult(true, null);
-
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(serviceResult));
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(true));
 
             //Action
-            var actResult = await controller.AddAsync(dto);
-            var badRequestResult = actResult as BadRequestObjectResult;
+            var actResult = await _controller.AddAsync(_correctEmail);
+            var contentResult = actResult as  ContentResult;
 
             //Assert
-            Assert.IsType<BadRequestObjectResult>(actResult);
-            Assert.Equal(StatusCodes.Status400BadRequest, badRequestResult.StatusCode);
-        }
-                
-        [Fact]
-        public async Task Should_ReturnInternalServerError_When_UserdidntSaveAsync()
-        {
-            //Arrange
-            UserController controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object);
-            UserDTO dto = new UserDTO()
-            {
-                Email = "exist@mail.com"
-            };
-
-            var serviceResult = new ServiceResult(false, null);
-
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(serviceResult));
-            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(serviceResult));
-
-            //Action
-            var actResult = await controller.AddAsync(dto);
-            var internalServerErrorRequest = actResult as ObjectResult;
-
-            //Assert
-            Assert.IsType<ObjectResult>(actResult);
-            Assert.Equal(StatusCodes.Status500InternalServerError, internalServerErrorRequest.StatusCode);
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status400BadRequest, contentResult.StatusCode);
         }
 
         [Fact]
-        public async Task Should_ReturnOk_When_UserSavedAsync()
+        public async Task Should_ReturnStatus500_When_UserDidntSaveAsync()
         {
             //Arrange
-            UserController controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object);
-            UserDTO dto = new UserDTO()
-            {
-                Email = "exist@mail.com"
-            };
+            var addResult = new ServiceResult(false, null);
 
-            var checkResult = new ServiceResult(false, null);
-            var addResult = new ServiceResult(true, null);
-
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(checkResult));
             _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
 
             //Action
-            var actResult = await controller.AddAsync(dto);
-            var badRequestResult = actResult as OkObjectResult;
+            var actResult = await _controller.AddAsync(_correctEmail);
+            var contentResult = actResult as ContentResult;
 
             //Assert
-            Assert.IsType<OkObjectResult>(actResult);
-            Assert.Equal(StatusCodes.Status200OK, badRequestResult.StatusCode);
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status500InternalServerError, contentResult.StatusCode);
         }
+
+        [Fact]
+        public async Task Should_ReturnStatus500_When_KeyDidntCacheAsync()
+        {
+            //Arrange
+            var addResult = new ServiceResult(true, null);
+
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
+            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
+            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny <string>())).Returns(Task.FromResult(false));
+
+            //Action
+            var actResult = await _controller.AddAsync(_correctEmail);
+            var contentResult = actResult as ContentResult;
+
+            //Assert
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status500InternalServerError, contentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_ReturnStatus200_When_KeyCacheAsync()
+        {
+            //Arrange
+            var addResult = new ServiceResult(true, null);
+
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
+            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
+            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
+
+            //Action
+            var actResult = await _controller.AddAsync(_correctEmail);
+            var contentResult = actResult as ContentResult;
+
+            //Assert
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status200OK, contentResult.StatusCode);
+        }
+
+        #endregion
+
+        #region ConfirmEmail
+
+        [Fact]
+        public async Task Should_ReturnStatus404_When_KeyNotCorrectAsync()
+        {
+            //Assert
+            string key = "aa1";
+
+            //Act
+            var actResult = await _controller.ConfirmEmailAsync(key);
+            var contentResult = actResult as ContentResult;
+
+            //Arrange
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status400BadRequest, contentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_ReturnStatus400_When_KeyNotIntoCacheAsync()
+        {
+            //Assert
+            string key = "111111";
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult<string>(null));
+
+            //Act
+            var actResult = await _controller.ConfirmEmailAsync(key);
+            var contentResult = actResult as ContentResult;
+
+            //Arrange
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status400BadRequest, contentResult.StatusCode);
+        }
+
+        
+        [Fact]
+        public async Task Should_ReturnStatus500_When_DidntConfirmeAsync()
+        {
+            //Assert
+            string key = "111111";
+            string email = "test@mail.com";
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(email));
+            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
+
+            //Act
+            var actResult = await _controller.ConfirmEmailAsync(key);
+            var contentResult = actResult as ContentResult;
+
+            //Arrange
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status500InternalServerError, contentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_ReturnStatus200_When_EmailConfirmeAsync()
+        {
+            //Assert
+            string key = "111111";
+            string email = "test@mail.com";
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(email));
+            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(true));
+
+            //Act
+            var actResult = await _controller.ConfirmEmailAsync(key);
+            var contentResult = actResult as ContentResult;
+
+            //Arrange
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status200OK, contentResult.StatusCode);
+        }
+
+        #endregion
+
+        #region Validation
 
         [Theory]
         [InlineData("Valid user data")]
@@ -123,9 +209,13 @@ namespace Djelato.xUnitTests.Web
         [Theory]
         [InlineData("Name empty")]
         [InlineData("Name null")]
+        [InlineData("Name incorrect")]
         [InlineData("Email empty")]
         [InlineData("Email null")]
         [InlineData("Email incorrect")]
+        [InlineData("Phone null")]
+        [InlineData("Phone empty")]
+        [InlineData("Phone incorrect")]
         [InlineData("Password empty")]
         [InlineData("Password null")]
         [InlineData("Password incorrect")]
@@ -141,9 +231,9 @@ namespace Djelato.xUnitTests.Web
 
             //Assert
             Assert.False(validationResult.IsValid);
+            Assert.True(validationResult.Errors.Count >= 1);
         }
 
-        #endregion
 
         private UserDTO GetTestDTOModel(string dtoName)
         {
@@ -155,6 +245,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -166,6 +257,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -177,6 +269,19 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = null,
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
+                        Password = "1234567A",
+                        PasswordConfirm = "1234567A"
+                    }
+                },
+
+                 {
+                    "Name incorrect",
+                    new UserDTO
+                    {
+                        Name = "Test",
+                        Email = "@@@Test...",
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -188,6 +293,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "",
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -199,6 +305,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = null,
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -210,6 +317,43 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "aasd@asd",
+                        PhoneNumber = "1234",
+                        Password = "1234567A",
+                        PasswordConfirm = "1234567A"
+                    }
+                },
+
+                {
+                    "Phone null",
+                    new UserDTO
+                    {
+                        Name = "Test",
+                        Email = "aasd@asd",
+                        PhoneNumber = null,
+                        Password = "1234567A",
+                        PasswordConfirm = "1234567A"
+                    }
+                },
+
+                {
+                    "Phone empty",
+                    new UserDTO
+                    {
+                        Name = "Test",
+                        Email = "aasd@asd",
+                        PhoneNumber = "",
+                        Password = "1234567A",
+                        PasswordConfirm = "1234567A"
+                    }
+                },
+
+                 {
+                    "Phone incorrect",
+                    new UserDTO
+                    {
+                        Name = "Test",
+                        Email = "aasd@asd",
+                        PhoneNumber = "aaa1",
                         Password = "1234567A",
                         PasswordConfirm = "1234567A"
                     }
@@ -221,6 +365,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = "",
                         PasswordConfirm = ""
                     }
@@ -232,6 +377,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = null,
                         PasswordConfirm = null
                     }
@@ -243,6 +389,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = "123",
                         PasswordConfirm = "123"
                     }
@@ -254,6 +401,7 @@ namespace Djelato.xUnitTests.Web
                     {
                         Name = "Test",
                         Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
                         Password = "1234567A",
                         PasswordConfirm = "1234"
                     }
@@ -265,6 +413,7 @@ namespace Djelato.xUnitTests.Web
 
             return user;
         }
-                
+
+        #endregion
     }
 }
