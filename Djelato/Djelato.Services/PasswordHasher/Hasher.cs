@@ -27,11 +27,6 @@ namespace Djelato.Services.PasswordHasher
 
         public byte[] GetSalt()
         {
-            //byte[] salt = new byte[128 / 8];
-            //using (var rng = RandomNumberGenerator.Create())
-            //{
-            //    rng.GetBytes(salt);
-            //}
             RNGCryptoServiceProvider cryptoProvider = new RNGCryptoServiceProvider();
             byte[] salt = new byte[SaltByteSize];
             cryptoProvider.GetBytes(salt);
