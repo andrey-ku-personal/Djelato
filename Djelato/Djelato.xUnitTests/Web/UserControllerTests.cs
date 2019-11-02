@@ -49,7 +49,7 @@ namespace Djelato.xUnitTests.Web
         public async Task Should_ReturnStatus400_When_EamilNotUniqueAsync()
         {
             //Arrange
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(true));
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             //Action
             var actResult = await _controller.AddAsync(_correctEmail);
@@ -66,7 +66,7 @@ namespace Djelato.xUnitTests.Web
             //Arrange
             var addResult = new ServiceResult(false, null);
 
-            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
+            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
 
             //Action
             var actResult = await _controller.AddAsync(_correctEmail);
@@ -83,9 +83,9 @@ namespace Djelato.xUnitTests.Web
             //Arrange
             var addResult = new ServiceResult(true, null);
 
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
-            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
-            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny <string>())).Returns(Task.FromResult(false));
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
+            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
+            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny <string>())).ReturnsAsync(false);
 
             //Action
             var actResult = await _controller.AddAsync(_correctEmail);
@@ -102,9 +102,9 @@ namespace Djelato.xUnitTests.Web
             //Arrange
             var addResult = new ServiceResult(true, null);
 
-            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
-            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).Returns(Task.FromResult(addResult));
-            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
+            _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
+            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
 
             //Action
             var actResult = await _controller.AddAsync(_correctEmail);
@@ -139,7 +139,7 @@ namespace Djelato.xUnitTests.Web
         {
             //Assert
             string key = "111111";
-            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult<string>(null));
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync((string)null);
 
             //Act
             var actResult = await _controller.ConfirmEmailAsync(key);
@@ -157,8 +157,8 @@ namespace Djelato.xUnitTests.Web
             //Assert
             string key = "111111";
             string email = "test@mail.com";
-            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(email));
-            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(false));
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(email);
+            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
 
             //Act
             var actResult = await _controller.ConfirmEmailAsync(key);
@@ -175,8 +175,8 @@ namespace Djelato.xUnitTests.Web
             //Assert
             string key = "111111";
             string email = "test@mail.com";
-            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(email));
-            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).Returns(Task.FromResult(true));
+            _mockRedis.Setup(x => x.GetAsync(It.IsAny<string>())).ReturnsAsync(email);
+            _mockUserService.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             //Act
             var actResult = await _controller.ConfirmEmailAsync(key);

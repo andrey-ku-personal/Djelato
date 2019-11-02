@@ -87,15 +87,15 @@ namespace Djelato.Services.Services
             if (!user.EmailConfirmed)
             {
                 user.EmailConfirmed = true;
-            }
 
-            var replaceResult = await _userManager.UserManager.ReplaceOneAsync(user.Id, user);
-            if (!replaceResult.IsAcknowledged)
-            {
-                _logger.LogError("User can't confirm email because the field in database didn't update to true");
-                _logger.LogTrace("Djelato.Services.Services.UserService.CheckByEmailAsync()");
-                return false;
-            }
+                var replaceResult = await _userManager.UserManager.ReplaceOneAsync(user.Id, user);
+                if (!replaceResult.IsAcknowledged)
+                {
+                    _logger.LogError("User can't confirm email because the field in database didn't update to true");
+                    _logger.LogTrace("Djelato.Services.Services.UserService.CheckByEmailAsync()");
+                    return false;
+                }
+            }            
 
             return true;
         }

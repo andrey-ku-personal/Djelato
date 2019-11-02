@@ -6,6 +6,7 @@ using Djelato.Services.Models;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,20 @@ namespace Djelato.xUnitTests.Services
 {
     public class UserServiceTests
     {
-        private readonly Mock<IMongoRepoManager> _manager;
-        private readonly Mock<ILogger<UserService>> _logger;
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<IHasher> _hasher;
+        private readonly Mock<IMongoRepoManager> _mockManager;
+        private readonly Mock<ILogger<UserService>> _mockLogger;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<IHasher> _mockHasher;
         private readonly UserService _service;
         private byte[] _testSalt = new byte[16] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     public UserServiceTests()
         {
-            _manager = new Mock<IMongoRepoManager>();
-            _logger = new Mock<ILogger<UserService>>();
-            _mapper = new Mock<IMapper>();
-            _hasher = new Mock<IHasher>();
-            _service = new UserService(_manager.Object, _logger.Object, _mapper.Object, _hasher.Object);
+            _mockManager = new Mock<IMongoRepoManager>();
+            _mockLogger = new Mock<ILogger<UserService>>();
+            _mockMapper = new Mock<IMapper>();
+            _mockHasher = new Mock<IHasher>();
+            _service = new UserService(_mockManager.Object, _mockLogger.Object, _mockMapper.Object, _mockHasher.Object);
         }
 
         #region Add user async
@@ -41,8 +42,8 @@ namespace Djelato.xUnitTests.Services
             //Arrange
             UserModel model = new UserModel();
 
-            _mapper.Setup(x => x.Map<User>(It.IsAny<UserModel>())).Returns(new User());
-            _hasher.Setup(x => x.GetSalt()).Returns(new byte[16]);
+            _mockMapper.Setup(x => x.Map<User>(It.IsAny<UserModel>())).Returns(new User());
+            _mockHasher.Setup(x => x.GetSalt()).Returns(new byte[16]);
 
             //Act
             var result = await _service.AddAsync(model);
@@ -59,9 +60,9 @@ namespace Djelato.xUnitTests.Services
 
             UserModel model = new UserModel();
 
-            _mapper.Setup(x => x.Map<User>(model)).Returns(new User());
-            _hasher.Setup(x => x.GetSalt()).Returns(_testSalt);
-            _hasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns((string)null);
+            _mockMapper.Setup(x => x.Map<User>(model)).Returns(new User());
+            _mockHasher.Setup(x => x.GetSalt()).Returns(_testSalt);
+            _mockHasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns((string)null);
 
             //Act
             var result = await _service.AddAsync(model);
@@ -77,15 +78,15 @@ namespace Djelato.xUnitTests.Services
             //Arrange
             UserModel model = new UserModel() { Password = "1234567A" };
 
-            _mapper.Setup(x => x.Map<User>(model)).Returns(new User());
-            _hasher.Setup(x => x.GetSalt()).Returns(_testSalt);
-            _hasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns("some hash");
-            _manager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).Returns(Task.FromResult<bool>(false));
+            _mockMapper.Setup(x => x.Map<User>(model)).Returns(new User());
+            _mockHasher.Setup(x => x.GetSalt()).Returns(_testSalt);
+            _mockHasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns("some hash");
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(false);
 
             //Act
             var result = await _service.AddAsync(model);
 
-            _manager.Verify(x => x.UserManager.AddAsync(It.IsAny<User>()));
+            _mockManager.Verify(x => x.UserManager.AddAsync(It.IsAny<User>()));
 
             //Assert
             Assert.False(result.IsSuccessful);
@@ -98,18 +99,80 @@ namespace Djelato.xUnitTests.Services
 
             UserModel model = new UserModel() { Password = "1234567A" };
 
-            _mapper.Setup(x => x.Map<User>(model)).Returns(new User());
-            _hasher.Setup(x => x.GetSalt()).Returns(_testSalt);
-            _hasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns("some hash");
-            _manager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).Returns(Task.FromResult<bool>(true));
+            _mockMapper.Setup(x => x.Map<User>(model)).Returns(new User());
+            _mockHasher.Setup(x => x.GetSalt()).Returns(_testSalt);
+            _mockHasher.Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>())).Returns("some hash");
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             //Act
             var result = await _service.AddAsync(model);
 
-            _manager.Verify(x => x.UserManager.AddAsync(It.IsAny<User>()));
+            _mockManager.Verify(x => x.UserManager.AddAsync(It.IsAny<User>()));
 
             //Assert
             Assert.True(result.IsSuccessful);
+        }
+
+        #endregion
+
+        #region Confirm email
+
+        [Fact]
+        public async Task Should_ReturnFalse_When_CallNonexistentEmailAsync()
+        {
+            //Arrange
+            string email = "test@mail.com";
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(false);
+
+            //Action
+            var result = await _service.ConfirmEmailAsync(email);
+
+            //Assert
+            Assert.False(result);        
+        }
+
+        [Fact]
+        public async Task Should_ReturnFalse_When_DidntUpdateConfirmEmail()
+        {
+            //Arrange
+            string email = "test@mail.com";
+            User user = new User() { EmailConfirmed = false };
+
+            var mockReplaceResult = new Mock<ReplaceOneResult>();
+            mockReplaceResult.Setup(_ => _.IsAcknowledged).Returns(false);
+
+
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(true);
+            _mockManager.Setup(x => x.UserManager.GetAsync(It.IsAny<string>())).ReturnsAsync(user);
+            _mockManager.Setup(x => x.UserManager.ReplaceOneAsync(It.IsAny<string>(), It.IsAny<User>())).ReturnsAsync(mockReplaceResult.Object);
+
+            //Action
+            var result = await _service.ConfirmEmailAsync(email);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task Should_ReturnTrue_When_UpdateConfirmEmail()
+        {
+            //Arrange
+            string email = "test@mail.com";
+            User user = new User() { EmailConfirmed = false };
+
+            var mockReplaceResult = new Mock<ReplaceOneResult>();
+            mockReplaceResult.Setup(_ => _.IsAcknowledged).Returns(true);
+
+
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(true);
+            _mockManager.Setup(x => x.UserManager.GetAsync(It.IsAny<string>())).ReturnsAsync(user);
+            _mockManager.Setup(x => x.UserManager.ReplaceOneAsync(It.IsAny<string>(), It.IsAny<User>())).ReturnsAsync(mockReplaceResult.Object);
+
+            //Action
+            var result = await _service.ConfirmEmailAsync(email);
+
+            //Assert
+            Assert.True(result);
         }
 
         #endregion
@@ -120,7 +183,7 @@ namespace Djelato.xUnitTests.Services
         public async Task Should_ReturnFalse_When_UserNonExistentAsync()
         {
             //Arrange
-            _manager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).Returns(Task.FromResult<bool>(false));
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(false);
 
             //Act
             var isExist = await _service.CheckByEmailAsync(It.IsAny<string>());
@@ -133,7 +196,7 @@ namespace Djelato.xUnitTests.Services
         public async Task Should_ReturnTrue_When_UserExistAsync()
         {
             //Arrange
-            _manager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).Returns(Task.FromResult<bool>(true));
+            _mockManager.Setup(x => x.UserManager.CheckAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             //Act
             var isExist = await _service.CheckByEmailAsync(It.IsAny<string>());
