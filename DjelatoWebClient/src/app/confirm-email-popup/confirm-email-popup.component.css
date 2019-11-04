@@ -24,6 +24,7 @@
     text-align: center;
     font-family: 'Roboto', sans-serif;
     margin: 45px 0px 0px 0px ;
+    padding: 5px 10px;
 }
 
 #confirm-popup #popup-title span {

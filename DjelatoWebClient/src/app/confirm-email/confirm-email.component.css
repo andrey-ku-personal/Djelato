@@ -7,18 +7,39 @@
 }
 
 #block-email-title {
-    margin-top: 100px;
-    display: flex;    
-    justify-content: space-around;
+    margin: 100px auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #block-email-title #title {
-    height: 400px;
-    width: 500px;    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
+    flex-grow: 0;   
+    margin: auto; 
+    text-align: center;
+}
+
+#block-image {
+    flex-grow: 0.5;  
+    margin-left: auto;
+
+}
+
+#block-image img {
+    text-align: center;
+    
+}
+
+@media (max-width: 500px) {
+
+    #block-image img {
+        width: 225px;
+        height: 149px;
+    }
+}
+
+#block-image img {
+    border: 1px solid black;
 }
 
 #block-email-title #title p {
@@ -28,72 +49,24 @@
     font-family: 'Roboto', sans-serif;  
 }
 
-#block-email-title #title p span {    
-    font-family: 'Roboto', sans-serif;  
-    font-size: 1.5rem;
-}
+@media (max-width: 500px) {
 
-#block-image {
-    height: 400px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-#block-image img {
-    border: 1px solid white;
+    #block-email-title #title p {
+        font-size: 1.2em;
+    }
 }
 
 #block-email-title #title button {
+    margin-top: 30px;
     width: 100px;
     height: 50px;
-    margin-top: 20px; 
     font-weight: bolder;
     background-color: black !important;
     line-height: 50px;
     border-radius: 10px;
 }
 
-@media (max-width: 1072px) and (min-width: 520px){
-    #block-email-title  {
-        margin-top: 50px;
-        width: auto;  
-        flex-direction: column-reverse;
-        justify-content: flex-start;
-    }
-
-    #block-email-title #title {
-        height: 200px;
-        text-align: center;
-        margin: auto;
-        align-items: center;
-    }
+#block-email-title #title button:hover {
+    background-color: white !important;
+    color: black;
 }
-
-@media (max-width: 519px) {
-    #block-email-title  {
-        margin-top: 50px;
-        width: auto;  
-        flex-direction: column-reverse;
-        justify-content: flex-start;
-    }
-
-    #block-email-title #title {
-        height: auto;
-        width: auto;
-        text-align: center;
-        margin: auto;
-        align-items: center;
-    }
-
-    #block-image img {
-        width: 225px;
-        height: 149px;
-    }
-
-    #block-image {
-        height: 220px;
-    }
-}
-
