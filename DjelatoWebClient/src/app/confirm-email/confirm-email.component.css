@@ -15,7 +15,7 @@
 
 #block-email-title #title {
     flex-grow: 0;   
-    margin: auto; 
+    margin: 50px auto; 
     text-align: center;
 }
 
@@ -26,8 +26,7 @@
 }
 
 #block-image img {
-    text-align: center;
-    
+    text-align: center;    
 }
 
 @media (max-width: 500px) {

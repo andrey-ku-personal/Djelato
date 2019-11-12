@@ -45,13 +45,19 @@
 }
 
 ::ng-deep .example-full-width{
-    width: 200px !important;
+    width: 250px !important;
 }
 
 @media (max-width: 520px) {
     ::ng-deep .example-full-width{
         width: 150px !important;
     }
+}
+
+::ng-deep .mat-dialog-container {
+    border: 2px solid #a8b9f1;
+    border-radius: 10px;
+    padding: 0%;
 }
 
 ::ng-deep .mat-fab{
@@ -76,3 +82,4 @@
 ::ng-deep .mat-flat-button {
     background-color: #09dd1b;
 }
+

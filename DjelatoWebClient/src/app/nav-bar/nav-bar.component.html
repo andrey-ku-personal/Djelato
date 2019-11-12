@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    disableClose="false"
+    fixedInViewport="non-fixed"
+
+    [ngClass] = "{hidden: (isHandset$ | async)!.matches}"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="isLargeScreen() ? 'side' : 'over'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary">      
+      <span class="title-description">Djelato store</span>
+
+      <button
+        *ngIf="!isLargeScreen()"
+        id="button-icon-menu"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+    </mat-toolbar>    
+
+    <mat-nav-list dense>
+
+      <mat-list-item>
+        <a class="mat-list-links" mat-list-item routerLink="/index" routerLinkActive="active">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <span class="icon-description">Home</span>
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <a class="mat-list-links" mat-list-item (click) = "createDialog()" routerLinkActive="active">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <span class="icon-description">Registration</span>
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <a  mat-list-item routerLink="/confirmemail" routerLinkActive="active">
+          <mat-icon mat-list-icon >email</mat-icon>
+          <span class="icon-description">Confirm email</span>
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary">
+      <button 
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <ng-content></ng-content>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

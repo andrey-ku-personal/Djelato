@@ -120,3 +120,8 @@
     margin-top: 40px;
 }
 
+::ng-deep .mat-dialog-container {
+    border: 2px solid #a8b9f1;
+    padding: 0%;
+}
+

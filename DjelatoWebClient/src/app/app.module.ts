@@ -10,9 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule,
          MatMenuModule,
          MatInputModule,
-         MatButtonModule,
-         MatDialogModule
+         MatButtonModule,          
+         MatToolbarModule,
+         MatSidenavModule, 
+         MatListModule
          } from '@angular/material';
+
+import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';   
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -21,6 +25,8 @@ import { HeaderComponent } from './header/header.component';
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ConfirmEmailPopupComponent } from './confirm-email-popup/confirm-email-popup.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     HomeComponent,
     HeaderComponent,
     ConfirmEmailComponent,
-    ConfirmEmailPopupComponent
+    ConfirmEmailPopupComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +50,16 @@ import { ToastrModule } from 'ngx-toastr';
     MatDialogModule,
     ReactiveFormsModule,    
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
-  providers: [],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmEmailPopupComponent]
 })

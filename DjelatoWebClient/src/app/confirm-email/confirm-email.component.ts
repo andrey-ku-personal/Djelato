@@ -11,8 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ConfirmEmailComponent implements OnInit {
 
-  response: IResponseContent;
-
   constructor(
     private dialog: MatDialog,
     private toastr: ToastrService
@@ -27,8 +25,8 @@ export class ConfirmEmailComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((result: IResponseContent)=>{
-        this.response = result;
-        if (result.isSucceeded){
+
+        if (result != undefined && result.isSucceeded){
           this.toastr.success(
             'Notification!', 
           'Email has confirmed successfully', 
@@ -38,5 +36,4 @@ export class ConfirmEmailComponent implements OnInit {
         }
       });
     }
-W
 }
