@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Djelato.Common.Entity;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.RedisRepositories.Interfaces;
 using Djelato.Services.Models;
 using Djelato.Services.Notification;
 using Djelato.Services.Services;
@@ -26,7 +26,7 @@ namespace Djelato.xUnitTests.Web
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<ILogger<UserController>> _mockLogger;
         private readonly Mock<INotifier> _mockEmailNotifier;
-        private readonly Mock<IRedisRepository> _mockRedis;
+        private readonly Mock<IRedisRepo> _mockRedis;
         private readonly UserController _controller;
 
         private readonly UserDTO _correctEmail;
@@ -37,7 +37,7 @@ namespace Djelato.xUnitTests.Web
             _mockMapper = new Mock<IMapper>();
             _mockLogger = new Mock<ILogger<UserController>>();
             _mockEmailNotifier = new Mock<INotifier>();
-            _mockRedis = new Mock<IRedisRepository>();
+            _mockRedis = new Mock<IRedisRepo>();
             _controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object, _mockEmailNotifier.Object, _mockRedis.Object);
 
             _correctEmail = new UserDTO() { Email = "exist@mail.com" };

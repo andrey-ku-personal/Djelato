@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Djelato.Common.Shared
 {
-    public static class RandomStuff
+    public static class RandomGenerator
     {
         private static Random _rnd;
-        static RandomStuff()
+        static RandomGenerator()
         {
             _rnd = new Random();
         }

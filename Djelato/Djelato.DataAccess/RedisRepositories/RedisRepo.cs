@@ -1,18 +1,18 @@
 ﻿using Djelato.DataAccess.Context;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.RedisRepositories.Interfaces;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Djelato.DataAccess.Repository
+namespace Djelato.DataAccess.RedisRepositories
 {
-    public  class RedisRepository : IRedisRepository
+    public class RedisRepo : IRedisRepo
     {
         private readonly RedisContext _context;
 
-        public RedisRepository(IConnectionMultiplexer connection)
+        public RedisRepo(IConnectionMultiplexer connection)
         {
             _context = new RedisContext(connection);
         }

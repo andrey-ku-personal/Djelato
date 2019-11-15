@@ -12,21 +12,21 @@ namespace Djelato.Web.ViewModel.FluentApi
     {
         public UserValidator()
         {
-            RuleFor(u => u.Name).NotEmpty().WithMessage("Name field cant be empty");
-            RuleFor(u => u.Name).NotNull().WithMessage("Name field should be fill in");
-            RuleFor(u => u.Name).Matches(RegexExpressions.NameRgx).WithMessage("Field should use latin alphabet");
+            RuleFor(u => u.Name).NotEmpty().WithMessage("Name field cant be empty")
+                .NotNull().WithMessage("Name field should be fill in")
+                .Matches(RegexExpressions.NameRgx).WithMessage("Field should use latin alphabet");
 
-            RuleFor(u => u.Email).NotEmpty().WithMessage("Email field cant be empty");
-            RuleFor(u => u.Email).NotNull().WithMessage("Email field should be fill in");
-            RuleFor(u => u.Email).Matches(RegexExpressions.EmailRgx).WithMessage("Email has incorrect format");
+            RuleFor(u => u.Email).NotEmpty().WithMessage("Email field cant be empty")
+                .NotNull().WithMessage("Email field should be fill in")
+                .Matches(RegexExpressions.EmailRgx).WithMessage("Email has incorrect format");
 
-            RuleFor(u => u.PhoneNumber).NotEmpty().WithMessage("Phone number field cant be empty");
-            RuleFor(u => u.PhoneNumber).NotNull().WithMessage("Phone number field should be fill in");
-            RuleFor(u => u.PhoneNumber).Matches(RegexExpressions.PhoneRgx).WithMessage("Phone number has incorrect format");
+            RuleFor(u => u.PhoneNumber).NotEmpty().WithMessage("Phone number field cant be empty")
+                .NotNull().WithMessage("Phone number field should be fill in")
+                .Matches(RegexExpressions.PhoneRgx).WithMessage("Phone number has incorrect format");
 
-            RuleFor(u => u.Password).NotEmpty().WithMessage("Password field cant be empty");
-            RuleFor(u => u.Password).NotNull().WithMessage("Password field should be fill in");
-            RuleFor(u => u.Password).Matches(RegexExpressions.PasswordRgx).WithMessage("Should be minimum 8 elements, one uppercase letter, one number");
+            RuleFor(u => u.Password).NotEmpty().WithMessage("Password field cant be empty")
+                .NotNull().WithMessage("Password field should be fill in")
+                .Matches(RegexExpressions.PasswordRgx).WithMessage("Should be minimum 8 elements, one uppercase letter, one number");
 
             RuleFor(u => u.PasswordConfirm).Equal(pas => pas.Password).WithMessage("Confirm field is mismatch");
 

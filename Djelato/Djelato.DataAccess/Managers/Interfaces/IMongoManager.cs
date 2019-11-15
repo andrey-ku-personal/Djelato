@@ -1,13 +1,13 @@
 ﻿using Djelato.DataAccess.Entity;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.MongoRepositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Djelato.DataAccess.Managers.Interfaces
 {
-    public interface IMongoRepoManager
+    public interface IMongoManager
     {
-        IUserRepository<User> UserManager { get; }
+        IUserRepo<User> UserManager { get; }
     }
 }

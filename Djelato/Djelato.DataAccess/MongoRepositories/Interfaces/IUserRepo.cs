@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Djelato.DataAccess.Repository.Interfaces
+namespace Djelato.DataAccess.MongoRepositories.Interfaces
 {
-    public interface IUserRepository<T> where T : class
+    public interface IUserRepo<T> where T : class
     {
         Task AddAsync(T obj);
         Task<bool> CheckAsync(string email);

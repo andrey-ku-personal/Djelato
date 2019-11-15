@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Djelato.DataAccess.Entity;
 using Djelato.DataAccess.Managers.Interfaces;
-using Djelato.DataAccess.Repository.Interfaces;
 using Djelato.Services.Models;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services.Interfaces;
@@ -16,12 +15,12 @@ namespace Djelato.Services.Services
 {
     public class UserService : IUserService
     {
-        private readonly IMongoRepoManager _userManager;
+        private readonly IMongoManager _userManager;
         private readonly ILogger<UserService> _logger;
         private readonly IMapper _mapper;
         private readonly IHasher _hasher;
 
-        public UserService(IMongoRepoManager userManager, 
+        public UserService(IMongoManager userManager, 
             ILogger<UserService> logger, 
             IMapper mapper, 
             IHasher hasher)

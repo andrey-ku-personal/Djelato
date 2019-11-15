@@ -6,8 +6,8 @@ using AutoMapper;
 using Djelato.Common.Settings;
 using Djelato.DataAccess.Managers;
 using Djelato.DataAccess.Managers.Interfaces;
-using Djelato.DataAccess.Repository;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.RedisRepositories;
+using Djelato.DataAccess.RedisRepositories.Interfaces;
 using Djelato.Services.Notification;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services;
@@ -62,7 +62,7 @@ namespace Djelato.Web
 
             #region Binding
 
-            services.AddScoped<IMongoRepoManager, MongoRepoManager>();
+            services.AddScoped<IMongoManager, MongoManager>();
 
             services.AddScoped<IUserService, UserService>();
 
@@ -70,7 +70,7 @@ namespace Djelato.Web
 
             services.AddSingleton<IHasher, Hasher>();
 
-            services.AddScoped<IRedisRepository, RedisRepository>();
+            services.AddScoped<IRedisRepo, RedisRepo>();
 
             #endregion
 

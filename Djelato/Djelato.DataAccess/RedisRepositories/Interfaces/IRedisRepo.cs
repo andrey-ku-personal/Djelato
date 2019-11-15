@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Djelato.DataAccess.Repository.Interfaces
+namespace Djelato.DataAccess.RedisRepositories.Interfaces
 {
-    public interface IRedisRepository
+    public interface IRedisRepo
     {
         Task<string> GetAsync(string key);
         Task<bool> SetAsync(string key, string value);

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Djelato.Common.Shared;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.RedisRepositories.Interfaces;
 using Djelato.Services.Models;
 using Djelato.Services.Notification;
 using Djelato.Services.Services.Interfaces;
@@ -26,9 +26,9 @@ namespace Djelato.Web.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _service;
         private readonly INotifier _emailNotifier;
-        private readonly IRedisRepository _redis;
+        private readonly IRedisRepo _redis;
 
-        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService service, INotifier emailNotifier, IRedisRepository redis)
+        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService service, INotifier emailNotifier, IRedisRepo redis)
         {
             _logger = logger;
             _mapper = mapper;
@@ -58,7 +58,7 @@ namespace Djelato.Web.Controllers
                     return result;
                 }
 
-                var key = RandomStuff.RandomNumber(1, 1000000);
+                var key = RandomGenerator.RandomNumber(1, 1000000);
                 await _emailNotifier.SendKey(dto.Email, key);
                  
                 bool isCache = await _redis.SetAsync(key.ToString(), dto.Email);

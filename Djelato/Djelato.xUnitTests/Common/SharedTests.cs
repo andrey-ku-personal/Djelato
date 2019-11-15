@@ -14,9 +14,9 @@ namespace Djelato.xUnitTests.Common
             //Arrange
 
             //Act
-            int value1 = RandomStuff.RandomNumber(1, 1000000);
-            int value2 = RandomStuff.RandomNumber(1, 1000000);
-            int value3 = RandomStuff.RandomNumber(1, 1000000);
+            int value1 = RandomGenerator.RandomNumber(1, 1000000);
+            int value2 = RandomGenerator.RandomNumber(1, 1000000);
+            int value3 = RandomGenerator.RandomNumber(1, 1000000);
 
             //Assert
             Assert.True(value1 != value2 && value1 != value2);

@@ -18,7 +18,7 @@ namespace Djelato.xUnitTests.Services
 {
     public class UserServiceTests
     {
-        private readonly Mock<IMongoRepoManager> _mockManager;
+        private readonly Mock<IMongoManager> _mockManager;
         private readonly Mock<ILogger<UserService>> _mockLogger;
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<IHasher> _mockHasher;
@@ -27,7 +27,7 @@ namespace Djelato.xUnitTests.Services
 
     public UserServiceTests()
         {
-            _mockManager = new Mock<IMongoRepoManager>();
+            _mockManager = new Mock<IMongoManager>();
             _mockLogger = new Mock<ILogger<UserService>>();
             _mockMapper = new Mock<IMapper>();
             _mockHasher = new Mock<IHasher>();

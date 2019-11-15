@@ -1,19 +1,18 @@
 ﻿using Djelato.DataAccess.Context;
-using Djelato.DataAccess.Entity;
-using Djelato.DataAccess.Repository.Interfaces;
+using Djelato.DataAccess.MongoRepositories.Interfaces;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Djelato.DataAccess.Repository
+namespace Djelato.DataAccess.MongoRepositories
 {
-    internal class UserRepository<T> : IUserRepository<T> where T : class
+    public class UserRepo<T> : IUserRepo<T> where T : class
     {
         private readonly MongoContext<T> _context = null;
 
-        internal UserRepository(MongoContext<T> context)
+        internal UserRepo(MongoContext<T> context)
         {
             _context = context;
         }
@@ -53,3 +52,4 @@ namespace Djelato.DataAccess.Repository
         }
     }
 }
+

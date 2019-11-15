@@ -10,8 +10,6 @@ namespace Djelato.Web.ViewModel
         public string ErrorMessage { get; set; }
         public string Message { get; set; }
         public object Result { get; set; }
-        public bool IsSucceeded { get; set; }
-
-        
+        public bool IsSucceeded { get; set; }        
     }
 }
