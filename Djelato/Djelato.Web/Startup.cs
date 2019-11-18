@@ -8,6 +8,8 @@ using Djelato.DataAccess.Managers;
 using Djelato.DataAccess.Managers.Interfaces;
 using Djelato.DataAccess.RedisRepositories;
 using Djelato.DataAccess.RedisRepositories.Interfaces;
+using Djelato.Services.JWT;
+using Djelato.Services.JWT.Interfaces;
 using Djelato.Services.Notification;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services;
@@ -28,6 +30,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using StackExchange.Redis;
 
@@ -72,12 +75,15 @@ namespace Djelato.Web
 
             services.AddScoped<IRedisRepo, RedisRepo>();
 
+            services.AddScoped<IAuthService, AuthService>();
+
             #endregion
 
             services.AddControllers()
                 .AddFluentValidation(fv =>
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<UserValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<AuthValidator>();
 
                     fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
@@ -152,6 +158,40 @@ namespace Djelato.Web
                 IConnectionMultiplexer redisCient = ConnectionMultiplexer.Connect($"{settings.Value.Host}:{settings.Value.Port}");
                 return redisCient;
             });
+
+            #endregion
+
+            #region JWT
+
+            string signingSecurityKey = Configuration["JWTSettings:Secret"];
+            var signingKey = new SigningSymmetricKey(signingSecurityKey);
+
+            services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
+
+            string jwtSchemeName = Configuration["JWTSettings:SchemaName"].ToString();
+            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+            services
+                .AddAuthentication(options => {
+                    options.DefaultAuthenticateScheme = jwtSchemeName;
+                    options.DefaultChallengeScheme = jwtSchemeName;
+                })
+                .AddJwtBearer(jwtSchemeName, jwtBearerOptions => {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = signingDecodingKey.GetKey(),
+
+                        ValidateIssuer = true,
+                        ValidIssuer = "DjelatoApp",
+
+                        ValidateAudience = true,
+                        ValidAudience = "DjelatoAppClient",
+
+                        ValidateLifetime = true,
+
+                        ClockSkew = TimeSpan.FromSeconds(10)
+                    };
+                });
 
             #endregion
         }

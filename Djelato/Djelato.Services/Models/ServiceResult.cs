@@ -19,13 +19,13 @@ namespace Djelato.Services.Models
     public struct ServiceResult<T>
     {
         public bool IsSuccessful { get; set; }
-        public T Result { get; private set; }
+        public T Obj { get; private set; }
         public string Message { get; private set; }
 
-        public ServiceResult(bool isSuccessful, T result, string message)
+        public ServiceResult(bool isSuccessful, T obj, string message)
         {
             IsSuccessful = isSuccessful;
-            Result = result;
+            Obj = obj;
             Message = message;
         }
     }

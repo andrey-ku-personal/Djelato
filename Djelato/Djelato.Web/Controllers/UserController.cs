@@ -24,15 +24,15 @@ namespace Djelato.Web.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IMapper _mapper;
-        private readonly IUserService _service;
+        private readonly IUserService _userService;
         private readonly INotifier _emailNotifier;
         private readonly IRedisRepo _redis;
 
-        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService service, INotifier emailNotifier, IRedisRepo redis)
+        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService userService, INotifier emailNotifier, IRedisRepo redis)
         {
             _logger = logger;
             _mapper = mapper;
-            _service = service;
+            _userService = userService;
             _emailNotifier = emailNotifier;
             _redis = redis;
         }
@@ -42,7 +42,7 @@ namespace Djelato.Web.Controllers
         {
             try
             {
-                bool isExist = await _service.CheckByEmailAsync(dto.Email);
+                bool isExist = await _userService.CheckByEmailAsync(dto.Email.ToLower());
                 if (isExist)
                 {
                     _logger.LogInformation($"User {dto.Name} use email which exist in database");
@@ -51,17 +51,20 @@ namespace Djelato.Web.Controllers
                 }
 
                 UserModel model = _mapper.Map<UserModel>(dto);
-                ServiceResult addResult = await _service.AddAsync(model);
+                ServiceResult addResult = await _userService.AddAsync(model);
                 if (!addResult.IsSuccessful)
                 {
                     var result = ServerError();
                     return result;
                 }
 
-                var key = RandomGenerator.RandomNumber(1, 1000000);
+                int maxRandom = 1000000;
+                int minRandom = 1;
+
+                var key = RandomGenerator.RandomNumber(minRandom, maxRandom);
                 await _emailNotifier.SendKey(dto.Email, key);
                  
-                bool isCache = await _redis.SetAsync(key.ToString(), dto.Email);
+                bool isCache = await _redis.SetAsync(key.ToString(), dto.Email.ToLower());
                 if (isCache)
                 {
                     var result = Success(null, "Profile created");
@@ -122,7 +125,7 @@ namespace Djelato.Web.Controllers
                     return result;
                 }
 
-                bool isConfirmed = await _service.ConfirmEmailAsync(email);
+                bool isConfirmed = await _userService.ConfirmEmailAsync(email);
 
                 if (isConfirmed)
                 {
