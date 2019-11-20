@@ -164,12 +164,19 @@ namespace Djelato.Web
             #region JWT
 
             string signingSecurityKey = Configuration["JWTSettings:Secret"];
-            var signingKey = new SigningSymmetricKey(signingSecurityKey);
+            SigningSymmetricKey signingKey = new SigningSymmetricKey(signingSecurityKey);
+            services.AddSingleton<IJwtSigningEncodingKey>(signingKey);     
+            
+            IJwtSigningDecodingKey signingDecodingKey = signingKey;
 
-            services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
+            string encodingSecurityKey = Configuration["JWTSettings:EncodingKey"];
+            EncryptingSymmetricKey encryptionEncodingKey = new EncryptingSymmetricKey(encodingSecurityKey);
+            services.AddSingleton<IJwtEncryptingEncodingKey>(encryptionEncodingKey);
+
+            IJwtEncryptingDecodingKey encryptingDecodingKey = encryptionEncodingKey;
 
             string jwtSchemeName = Configuration["JWTSettings:SchemaName"].ToString();
-            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+
             services
                 .AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = jwtSchemeName;
@@ -180,6 +187,7 @@ namespace Djelato.Web
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = signingDecodingKey.GetKey(),
+                        TokenDecryptionKey = encryptingDecodingKey.GetKey(),
 
                         ValidateIssuer = true,
                         ValidIssuer = "DjelatoApp",
@@ -196,7 +204,6 @@ namespace Djelato.Web
             #endregion
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -21,19 +21,21 @@ namespace Djelato.Services.Services
         private readonly ILogger<AuthService> _logger;
         private readonly IHasher _hasher;
         private readonly IJwtSigningEncodingKey _signingEncodingKey;
-
+        private readonly IJwtEncryptingEncodingKey _encryptingEncodingKey;
 
         public AuthService(
             IMongoManager mongoManager, 
             ILogger<AuthService> logger, 
             IHasher hasher, 
-            IJwtSigningEncodingKey signingEncodingKey
+            IJwtSigningEncodingKey signingEncodingKey,
+            IJwtEncryptingEncodingKey encryptingEncodingKey
             )
         {
             _mongoManager = mongoManager;
             _logger = logger;
             _hasher = hasher;
             _signingEncodingKey = signingEncodingKey;
+            _encryptingEncodingKey = encryptingEncodingKey;
         }        
 
         public async Task<ServiceResult> AuthorizeAsync(AuthModel model)
@@ -88,14 +90,22 @@ namespace Djelato.Services.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
-            var token = new JwtSecurityToken(
-                issuer: "Djelato",
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateJwtSecurityToken(
+                issuer: "DjelatoApp",
                 audience: "DjelatoClient",
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                subject: new ClaimsIdentity(claims),
+                notBefore: DateTime.Now,
+                expires: DateTime.Now.AddHours(24),
+                issuedAt: DateTime.Now,
                 signingCredentials: new SigningCredentials(
-                        _signingEncodingKey.GetKey(),
-                        _signingEncodingKey.SigningAlgorithm)
+                    _signingEncodingKey.GetKey(),
+                    _signingEncodingKey.SigningAlgorithm),
+                encryptingCredentials: new EncryptingCredentials(
+                    _encryptingEncodingKey.GetKey(),
+                    _encryptingEncodingKey.SigningAlgorithm,
+                    _encryptingEncodingKey.EncryptingAlgorithm)
             );
 
             string jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
