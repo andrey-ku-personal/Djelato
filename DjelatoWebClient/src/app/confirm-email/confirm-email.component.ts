@@ -26,7 +26,7 @@ export class ConfirmEmailComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((result: IResponseContent)=>{
 
-        if (result != undefined && result.isSucceeded){
+        if (result && result.isSucceeded){
           this.toastr.success(
             'Notification!', 
           'Email has confirmed successfully', 

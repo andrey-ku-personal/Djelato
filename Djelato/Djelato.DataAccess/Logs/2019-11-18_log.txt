@@ -1,0 +1,24 @@
+2019-11-18 09:35:01.8329 DEBUG init main
+2019-11-18 09:35:04.1295 INFO User profile is available. Using 'C:\Users\User\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2019-11-18 09:35:04.4225 INFO Application started. Press Ctrl+C to shut down.
+2019-11-18 09:35:04.4225 INFO Hosting environment: Development
+2019-11-18 09:35:04.4225 INFO Content root path: D:\Projects\djelato\Djelato\Djelato.Web
+2019-11-18 09:35:04.4731 INFO Request starting HTTP/1.1 GET http://localhost:58111/weatherforecast  
+2019-11-18 09:35:04.5296 INFO Request finished in 58.0947ms 404 
+2019-11-18 09:35:09.0708 INFO Request starting HTTP/1.1 POST http://localhost:58111/api/Auth application/json 61
+2019-11-18 09:35:09.0782 INFO Executing endpoint 'Djelato.Web.Controllers.AuthController.AuthenticationAsync (Djelato.Web)'
+2019-11-18 09:35:09.1222 INFO Route matched with {action = "Authentication", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AuthenticationAsync(Djelato.Web.ViewModel.AuthDTO) on controller Djelato.Web.Controllers.AuthController (Djelato.Web).
+2019-11-18 09:35:10.2222 ERROR When user: tried to authenticate, appeared the exception: Microsoft.IdentityModel.Tokens
+2019-11-18 09:35:10.2222 ERROR Code message for this error: IDX10634: Unable to create the SignatureProvider.
+Algorithm: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]', SecurityKey: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'
+ is not supported. The list of supported algorithms is available here: https://aka.ms/IdentityModel/supported-algorithms
+2019-11-18 09:35:10.2679 TRACE Trace for error:    at Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateSignatureProvider(SecurityKey key, String algorithm, Boolean willCreateSignatures)
+   at Microsoft.IdentityModel.Tokens.CryptoProviderFactory.CreateForSigning(SecurityKey key, String algorithm)
+   at Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.CreateEncodedSignature(String input, SigningCredentials signingCredentials)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.WriteToken(SecurityToken token)
+   at Djelato.Services.Services.AuthService.GetTokenAsync(String email) in D:\Projects\djelato\Djelato\Djelato.Services\Services\AuthService.cs:line 101
+   at Djelato.Web.Controllers.AuthController.AuthenticationAsync(AuthDTO authDTO) in D:\Projects\djelato\Djelato\Djelato.Web\Controllers\AuthController.cs:line 58
+2019-11-18 09:35:10.3089 INFO Executing ContentResult with HTTP Response ContentType of application/json
+2019-11-18 09:35:10.3178 INFO Executed action Djelato.Web.Controllers.AuthController.AuthenticationAsync (Djelato.Web) in 1191.9817ms
+2019-11-18 09:35:10.3178 INFO Executed endpoint 'Djelato.Web.Controllers.AuthController.AuthenticationAsync (Djelato.Web)'
+2019-11-18 09:35:10.3178 INFO Request finished in 1250.6301ms 500 application/json

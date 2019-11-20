@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
-import { UserService } from '../Services/UserServices/user.service';
+
 import { MatDialogRef } from '@angular/material';
+
+import { MaterialModule } from '../shared/material/material.module'
+
+import { UserService } from '../Services/UserServices/user.service';
+
 import { UserModel } from '../sign-up//models/user-model';
+
 import { IResponseContent } from '../shared/models/response-content';
+
 import { RegexExpressions } from '../shared/regex-expressions';
  
 @Component({

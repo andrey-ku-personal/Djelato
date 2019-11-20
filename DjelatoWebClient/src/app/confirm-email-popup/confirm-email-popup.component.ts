@@ -1,9 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {  Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { RegexExpressions } from '../shared/regex-expressions';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+
+import { MatDialogRef } from '@angular/material';
+
 import { UserService } from '../Services/UserServices/user.service';
+
+import { RegexExpressions } from '../shared/regex-expressions';
 import { IResponseContent } from '../shared/models/response-content';
+
+import { MaterialModule } from '../shared/material/material.module';
 
 @Component({
   selector: 'app-confirm-email-popup',
