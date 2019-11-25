@@ -1,12 +1,13 @@
 #signin-form {
-    width: 500px;
-    height: 640px;
+    width: auto;
+    height: auto;
     border-radius: 10px;
     margin: auto;  
     overflow: auto;
+    padding: 20px 20px;
 }
 
-@media (max-width: 700px) and (min-width: 520px) {
+/* @media (max-width: 700px) and (min-width: 520px) {
     #signin-form {
         width: 350px;
     }
@@ -17,7 +18,96 @@
         height: 740px;
         width: 220px;
     }
+} */
+
+.singup-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
+
+#image-section { 
+    width: 300px;
+    height: auto;
+    padding: 20px;
+}
+
+#image-section p {
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 1.2em;
+    color: #00218f;
+    margin: 10px 0px;
+}
+
+#imageInput {
+    display: none;
+}
+
+#button-select-file {
+    width: 90px;
+    margin: auto;
+}
+
+::ng-deep #avatar-button {
+    background: black !important;
+    color: white !important;
+    width: 90px;
+    border-radius: 10px;
+}
+
+::ng-deep #avatar-button:hover {
+    background: #a8b9f1 !important;
+    color: #00218f !important;
+}
+
+.imagePreview {
+    width: 200px;
+    margin: 30px auto;  
+}
+
+.imagePreview img {
+    width: 200px;
+    height: auto;
+}
+
+#fields-section {
+    padding: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .form-name {
     padding-top  : 25px;
@@ -33,7 +123,7 @@
     color: #00218f;
 }
 
-#signin-form hr {
+#signup-form hr {
     width: 200px;
     text-align: center;
     border: 0;
@@ -43,14 +133,14 @@
 }
 
 @media (max-width: 700px) {
-    #signin-form hr {
+    #signup-form hr {
         width: 150px;
     }
 }
 
 .server-error-message {
     color: #f44336;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bolder;
     margin: 0px;
     padding: 0px;
@@ -72,7 +162,7 @@
 }
 
 ::ng-deep .example-full-width{
-  width: 400px !important;
+  width: 350px !important;
 }
 
 @media (max-width: 700px) and (min-width: 520px) {

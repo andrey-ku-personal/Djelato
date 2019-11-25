@@ -1,4 +1,5 @@
 ﻿using Djelato.Common.Entity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Djelato.Web.ViewModel
 {
     public class UserDTO
     {
+        public IFormFile Avatar { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }

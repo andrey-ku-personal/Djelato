@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { CrudService } from '../crud.service';
-import { UserModel } from 'src/app/sign-up/models/user-model'
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class UserService {
     private crudServices: CrudService
   ) { }
 
-  createUser(body: UserModel): Observable<any> {
+  createUser(body: FormData): Observable<any> {
     return this.crudServices.post('/api/user', body);
   }
 

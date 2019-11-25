@@ -28,7 +28,6 @@ import { MatTabsModule } from "@angular/material/Tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatDatepickerModule, MatNativeDateModule } from "@angular/material";
-import { AppComponent } from 'src/app/app.component';
 
 @NgModule({
   declarations: [],

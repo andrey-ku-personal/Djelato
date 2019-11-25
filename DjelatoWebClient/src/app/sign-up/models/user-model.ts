@@ -1,7 +1,8 @@
 export interface UserModel {
+    avatar: File;
     name: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     password: string;
     passwordConfirm: string;
 }

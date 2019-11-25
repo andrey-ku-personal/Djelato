@@ -18,7 +18,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { ToastrModule } from 'ngx-toastr';
 
-import { MaterialModule } from './shared/material/material.module'
+import { MaterialModule } from './shared/material/material.module';
+import { LoginComponent } from './login/login.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MaterialModule } from './shared/material/material.module'
     HomeComponent,
     ConfirmEmailComponent,
     ConfirmEmailPopupComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent
   ],
 
   imports: [

@@ -11,6 +11,7 @@ using Djelato.Services.Notification;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.ViewModel;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -38,67 +39,71 @@ namespace Djelato.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody]UserDTO dto)
-        {
-            try
-            {
-                bool isExist = await _userService.CheckByEmailAsync(dto.Email.ToLower());
-                if (isExist)
-                {
-                    _logger.LogInformation($"User {dto.Name} use email which exist in database");
-                    var result = ClientError("This email are exist");
-                    return result;
-                }
+        public async Task<IActionResult> AddAsync([FromForm] UserDTO user)
+         {
 
-                UserModel model = _mapper.Map<UserModel>(dto);
-                ServiceResult addResult = await _userService.AddAsync(model);
-                if (!addResult.IsSuccessful)
-                {
-                    var result = ServerError();
-                    return result;
-                }
 
-                int maxRandom = 1000000;
-                int minRandom = 1;
+            return Ok();
+            //try
+            //{
+            //    //bool isExist = await _userService.CheckByEmailAsync(dto.Email.ToLower());
+            //    //if (isExist)
+            //    //{
+            //    //    _logger.LogInformation($"User {dto.Name} use email which exist in database");
+            //    //    var result = ClientError("This email are exist");
+            //    //    return result;
+            //    //}
 
-                var key = RandomGenerator.RandomNumber(minRandom, maxRandom);
-                await _emailNotifier.SendKey(dto.Email, key);
-                 
-                bool isCache = await _redis.SetAsync(key.ToString(), dto.Email.ToLower());
-                if (isCache)
-                {
-                    var result = Success(null, "Profile created");
-                    return result;
-                }
-                else
-                {
-                    var result = ServerError();
-                    return result;
-                }
-            }
-            catch (MongoWriteException mwEx)
-            {
-                if (mwEx.WriteError.Category == ServerErrorCategory.DuplicateKey)
-                {
-                    _logger.LogInformation($"User: -{dto.Name}- tried to register an email which already exist");
-                    var result = ClientError("This email are exist");
-                    return result;
-                }
-                else
-                {
-                    var result = ServerError();
-                    return result;
-                }                
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"When user: -{dto.Name}- tried to create new profile, appeared the exception: {ex.Source}");
-                _logger.LogError($"Code message for this error: {ex.Message}");
-                _logger.LogTrace($"Trace for error: {ex.StackTrace}");
+            //    //UserModel model = _mapper.Map<UserModel>(dto);
+            //    //ServiceResult addResult = await _userService.AddAsync(model);
+            //    //if (!addResult.IsSuccessful)
+            //    //{
+            //    //    var result = ServerError();
+            //    //    return result;
+            //    //}
 
-                var result = ServerError();
-                return result;
-            }
+            //    //int maxRandom = 1000000;
+            //    //int minRandom = 1;
+
+            //    //var key = RandomGenerator.RandomNumber(minRandom, maxRandom);
+            //    //await _emailNotifier.SendKey(dto.Email, key);
+
+            //    //bool isCache = await _redis.SetAsync(key.ToString(), dto.Email.ToLower());
+            //    //if (isCache)
+            //    //{
+            //    //    var result = Success(null, "Profile created");
+            //    //    return result;
+            //    //}
+            //    //else
+            //    //{
+            //    //    var result = ServerError();
+            //    //    return result;
+            //    //}
+            //    return Ok();
+            //}
+            //catch (MongoWriteException mwEx)
+            //{
+            //    if (mwEx.WriteError.Category == ServerErrorCategory.DuplicateKey)
+            //    {
+            //        _logger.LogInformation($"User: -{dto.Name}- tried to register an email which already exist");
+            //        var result = ClientError("This email are exist");
+            //        return result;
+            //    }
+            //    else
+            //    {
+            //        var result = ServerError();
+            //        return result;
+            //    }                
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError($"When user: -{dto.Name}- tried to create new profile, appeared the exception: {ex.Source}");
+            //    _logger.LogError($"Code message for this error: {ex.Message}");
+            //    _logger.LogTrace($"Trace for error: {ex.StackTrace}");
+
+            //    var result = ServerError();
+            //    return result;
+            //}
         }
 
         [HttpPost]
