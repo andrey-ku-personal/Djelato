@@ -16,12 +16,6 @@ namespace Djelato.Web
     {        
         public static void Main(string[] args)
         {
-            //var config = new ConfigurationBuilder()
-            //    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //    .Build();
-            //NLog.Config.LoggingConfiguration nlogConfig = new NLogLoggingConfiguration(config.GetSection("NLog"));
-
             var logger = NLog.Web.NLogBuilder.ConfigureNLog(LogManager.Configuration).GetCurrentClassLogger();
 
             try

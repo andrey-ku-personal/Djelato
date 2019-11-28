@@ -13,6 +13,9 @@ namespace Djelato.DataAccess.Entity
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        [BsonElement("AvatarPath")]
+        public string AvatarPath { get; set; }
+
         [BsonElement("Name")]
         public string Name { get; set; }
 

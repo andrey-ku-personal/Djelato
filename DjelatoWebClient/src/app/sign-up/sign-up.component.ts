@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 
-import { MatDialogRef } from '@angular/material';
-
 import { UserService } from '../Services/UserServices/user.service';
 
 import { UserModel } from '../sign-up//models/user-model';
@@ -26,8 +24,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<SignUpComponent>
+    private formBuilder: FormBuilder
   ){
     this.profileInitForm();
   }
@@ -126,10 +123,6 @@ export class SignUpComponent implements OnInit {
       this.stringUrl = reader.result as string;
     }
     reader.readAsDataURL(file)
-  }  
-
-  onClose(){
-    this.dialogRef.close();
   }
 
   appendFile(): FormData {
@@ -141,28 +134,19 @@ export class SignUpComponent implements OnInit {
     form.append('email', user.email);
     form.append('phoneNumber', user.phoneNumber);
     form.append('password', user.password);
-    form.append('passwordConfirm', user.passwordConfirm);    
-    
-    // form.append('avatar', this.fileToUpload); 
-    // form.append('name', this.name.value);
-    // form.append('email', this.email.value);
-    // form.append('phoneNumber', this.phoneNumber.value);
-    // form.append('password', this.password.value);
-    // form.append('passwordConfirm', this.passwordConfirm.value);
+    form.append('passwordConfirm', user.passwordConfirm);
     
     return form;
   }
 
   onSubmit(): void {
     let profile: FormData = this.appendFile();
-    console.log(profile.get('profile'));
-
 
     this.model = <UserModel>this.profileForm.value;
 
     this.userService.createUser(profile).subscribe((data: IResponseContent) => {
       if (data.isSucceeded){
-        this.dialogRef.close();
+        
       }
     }, (error) => {
       let errorContent: IResponseContent = error.error;        

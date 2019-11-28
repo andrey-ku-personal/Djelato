@@ -24,12 +24,14 @@ namespace Djelato.Web.Mapping
                 .ForMember(x => x.EmailConfirmed, x => x.MapFrom(src => src.EmailConfirmed));
 
             CreateMap<User, UserModel>()
+                .ForMember(x => x.AvatarPath, x => x.MapFrom(src => src.AvatarPath))
                 .ForMember(x => x.Name, x => x.MapFrom(src => src.Name))
                 .ForMember(x => x.Email, x => x.MapFrom(src => src.Email))
                 .ForMember(x => x.Role, x => x.MapFrom(src => src.Role))
                 .ForMember(x => x.PhoneNumber, x => x.MapFrom(src => src.PhoneNumber));
 
             CreateMap<UserModel, User>()
+               .ForMember(x => x.AvatarPath, x => x.MapFrom(src => src.AvatarPath))
                .ForMember(x => x.Name, x => x.MapFrom(src => src.Name))
                .ForMember(x => x.Email, x => x.MapFrom(src => src.Email))
                .ForMember(x => x.Role, x => x.MapFrom(src => src.Role))

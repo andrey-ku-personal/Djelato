@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,7 +9,6 @@ using Djelato.Services.Notification;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.ViewModel;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -28,82 +25,95 @@ namespace Djelato.Web.Controllers
         private readonly IUserService _userService;
         private readonly INotifier _emailNotifier;
         private readonly IRedisRepo _redis;
+        private readonly IFileService _fileService;
 
-        public UserController(ILogger<UserController> logger, IMapper mapper, IUserService userService, INotifier emailNotifier, IRedisRepo redis)
+        public UserController(ILogger<UserController> logger, 
+            IMapper mapper, 
+            IUserService userService, 
+            INotifier emailNotifier, 
+            IRedisRepo redis,
+            IFileService fileService)
         {
             _logger = logger;
             _mapper = mapper;
             _userService = userService;
             _emailNotifier = emailNotifier;
             _redis = redis;
+            _fileService = fileService;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromForm] UserDTO user)
          {
+            try
+            {
+                bool isExist = await _userService.CheckByEmailAsync(user.Email.ToLower());
+                if (isExist)
+                {
+                    _logger.LogInformation($"User {user.Name} use email which exist in database");
+                    var result = ClientError("This email are exist");
+                    return result;
+                }
 
+                var saveImgResult = await _fileService.SaveAvatarImg(user.Avatar);
+                if (!saveImgResult.IsSuccessful || string.IsNullOrEmpty(saveImgResult.Obj))
+                {
+                    _logger.LogInformation($"User avatar wasn't saved in root directory. (User {user.Name})");
+                    var result = ClientError(saveImgResult.Message);
+                    return result;
+                }
 
-            return Ok();
-            //try
-            //{
-            //    //bool isExist = await _userService.CheckByEmailAsync(dto.Email.ToLower());
-            //    //if (isExist)
-            //    //{
-            //    //    _logger.LogInformation($"User {dto.Name} use email which exist in database");
-            //    //    var result = ClientError("This email are exist");
-            //    //    return result;
-            //    //}
+                UserModel model = _mapper.Map<UserModel>(user); // configure email to lower case in mapper settings!
+                model.AvatarPath = saveImgResult.Obj;
 
-            //    //UserModel model = _mapper.Map<UserModel>(dto);
-            //    //ServiceResult addResult = await _userService.AddAsync(model);
-            //    //if (!addResult.IsSuccessful)
-            //    //{
-            //    //    var result = ServerError();
-            //    //    return result;
-            //    //}
+                ServiceResult addResult = await _userService.AddAsync(model);
+                if (!addResult.IsSuccessful)
+                {
+                    var result = ServerError();
+                    return result;
+                }
 
-            //    //int maxRandom = 1000000;
-            //    //int minRandom = 1;
+                int maxRandom = 1000000;
+                int minRandom = 1;
 
-            //    //var key = RandomGenerator.RandomNumber(minRandom, maxRandom);
-            //    //await _emailNotifier.SendKey(dto.Email, key);
+                var key = RandomGenerator.RandomNumber(minRandom, maxRandom);
+                await _emailNotifier.SendKey(user.Email.ToLower(), key);
 
-            //    //bool isCache = await _redis.SetAsync(key.ToString(), dto.Email.ToLower());
-            //    //if (isCache)
-            //    //{
-            //    //    var result = Success(null, "Profile created");
-            //    //    return result;
-            //    //}
-            //    //else
-            //    //{
-            //    //    var result = ServerError();
-            //    //    return result;
-            //    //}
-            //    return Ok();
-            //}
-            //catch (MongoWriteException mwEx)
-            //{
-            //    if (mwEx.WriteError.Category == ServerErrorCategory.DuplicateKey)
-            //    {
-            //        _logger.LogInformation($"User: -{dto.Name}- tried to register an email which already exist");
-            //        var result = ClientError("This email are exist");
-            //        return result;
-            //    }
-            //    else
-            //    {
-            //        var result = ServerError();
-            //        return result;
-            //    }                
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError($"When user: -{dto.Name}- tried to create new profile, appeared the exception: {ex.Source}");
-            //    _logger.LogError($"Code message for this error: {ex.Message}");
-            //    _logger.LogTrace($"Trace for error: {ex.StackTrace}");
+                bool isCache = await _redis.SetAsync(key.ToString(), user.Email.ToLower());
+                if (isCache)
+                {
+                    var result = Success(null, "Profile created");
+                    return result;
+                }
+                else
+                {
+                    var result = ServerError();
+                    return result;
+                }
+            }
+            catch (MongoWriteException mwEx)
+            {
+                if (mwEx.WriteError.Category == ServerErrorCategory.DuplicateKey)
+                {
+                    _logger.LogInformation($"User: -{user.Name}- tried to register an email which already exist");
+                    var result = ClientError("This email are exist");
+                    return result;
+                }
+                else
+                {
+                    var result = ServerError();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"When user: -{user.Name}- tried to create new profile, appeared the exception: {ex.Source}");
+                _logger.LogError($"Code message for this error: {ex.Message}");
+                _logger.LogTrace($"Trace for error: {ex.StackTrace}");
 
-            //    var result = ServerError();
-            //    return result;
-            //}
+                var result = ServerError();
+                return result;
+            }
         }
 
         [HttpPost]

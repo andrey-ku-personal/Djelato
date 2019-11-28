@@ -7,6 +7,7 @@ namespace Djelato.Services.Models
 {
     public class UserModel
     {
+        public string AvatarPath { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public Role Role { get; set; }

@@ -1,4 +1,3 @@
-
 <div id="confirm-popup">
     <mat-icon matSuffix (click)='onClose()' id="close-icon">close</mat-icon>
         
@@ -17,8 +16,7 @@
             <mat-error *ngIf="key.hasError('pattern')">
                 <strong>Your key is wrong</strong> 
             </mat-error>    
-        </mat-form-field>      
-        
+        </mat-form-field>              
         
         <button mat-fab [disabled]="!keyForm.valid" type="submit" id="submit-btn">Ok</button>    
     </form>    

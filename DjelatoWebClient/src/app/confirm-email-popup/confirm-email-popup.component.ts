@@ -8,8 +8,6 @@ import { UserService } from '../Services/UserServices/user.service';
 import { RegexExpressions } from '../shared/regex-expressions';
 import { IResponseContent } from '../shared/models/response-content';
 
-import { MaterialModule } from '../shared/material/material.module';
-
 @Component({
   selector: 'app-confirm-email-popup',
   templateUrl: './confirm-email-popup.component.html',

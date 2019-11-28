@@ -1,29 +1,70 @@
-#signin-form {
-    width: auto;
+#signup-box {
+    width: 640px;
     height: auto;
+    border: 2px solid #00218f;
     border-radius: 10px;
-    margin: auto;  
-    overflow: auto;
-    padding: 20px 20px;
+    margin: 10px auto;
+    background-color: aliceblue;    
 }
 
-/* @media (max-width: 700px) and (min-width: 520px) {
-    #signin-form {
-        width: 350px;
-    }
+.form-name {
+    padding-top  : 25px;
 }
 
-@media (max-width: 519px) {
-    #signin-form {
-        height: 740px;
-        width: 220px;
+.form-name p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 1.5em;
+    color: #00218f;
+}
+
+hr {
+    width: 200px;
+    text-align: center;
+    border: 0;
+    border-bottom: 5px solid #00218f;
+    border-radius: 5px;
+    text-shadow: none;
+}
+
+@media (max-width: 700px) {
+    #signup-form hr {
+        width: 150px;
     }
-} */
+}
 
 .singup-form {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+
+@media(max-width: 900px) and (min-width: 500px ) {
+    #signup-box {
+        width: 400px;    
+    }
+
+    .singup-form {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media(max-width: 499px) {
+    #signup-box {
+        width: 280px;    
+    }
+
+    .singup-form {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 #image-section { 
@@ -48,6 +89,10 @@
 #button-select-file {
     width: 90px;
     margin: auto;
+}
+
+#imageButton {
+    color: white; 
 }
 
 ::ng-deep #avatar-button {
@@ -76,68 +121,6 @@
     padding: 20px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.form-name {
-    padding-top  : 25px;
-}
-
-.form-name p {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    font-family: 'Indie Flower', cursive;
-    font-weight: bolder;
-    font-size: 1.5em;
-    color: #00218f;
-}
-
-#signup-form hr {
-    width: 200px;
-    text-align: center;
-    border: 0;
-    border-bottom: 5px solid #00218f;
-    border-radius: 5px;
-    text-shadow: none;
-}
-
-@media (max-width: 700px) {
-    #signup-form hr {
-        width: 150px;
-    }
-}
-
 .server-error-message {
     color: #f44336;
     font-size: 14px;
@@ -149,7 +132,7 @@
     text-align: center;
 }
 
-#signin-form .form-to-submit {
+.form-to-submit {
     margin: 20px 0;
 }
 
@@ -165,15 +148,15 @@
   width: 350px !important;
 }
 
-@media (max-width: 700px) and (min-width: 520px) {
+@media(max-width: 900px) and (min-width: 500px ) {
     ::ng-deep .example-full-width{
-        width: 250px !important;
-    }
+        width: 350px !important;
+      }
 }
 
-@media (max-width: 519px) {
+@media (max-width: 499px) {
     ::ng-deep .example-full-width{
-        width: 150px !important;
+        width: 250px !important;
     }
 }
 
@@ -208,10 +191,5 @@
 .form-input-button button {
     margin: 0 20px;
     margin-top: 40px;
-}
-
-::ng-deep .mat-dialog-container {
-    border: 2px solid #a8b9f1;
-    padding: 0%;
 }
 

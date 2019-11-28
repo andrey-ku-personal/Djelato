@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Djelato.Common.Settings;
 using Djelato.DataAccess.Managers;
@@ -16,19 +15,15 @@ using Djelato.Services.Services;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.Mapping;
 using Djelato.Web.Middleware;
-using Djelato.Web.ViewModel;
 using Djelato.Web.ViewModel.FluentApi;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
@@ -66,6 +61,8 @@ namespace Djelato.Web
             #region Binding
 
             services.AddScoped<IMongoManager, MongoManager>();
+
+            services.AddScoped<IFileService, FileService>();
 
             services.AddScoped<IUserService, UserService>();
 
@@ -223,6 +220,8 @@ namespace Djelato.Web
             {
                 endpoints.MapControllers();
             });
+
+            app.UseStaticFiles();
         }
     }
 }

@@ -1,106 +1,103 @@
-<div class="background-fone">
-    <div id="signup-form" class="forms">
+<div id="signup-box">
+    <div class="form-name">
+        <p>Registration form</p>
+    </div>       
 
-        <div class="form-name">
-            <p>Registration form</p>
-        </div>       
+    <hr/>
 
-        <hr/>
+    <p class="server-error-message">
+      <strong>{{ message }}</strong>
+    </p>
 
-        <p class="server-error-message">
-          <strong>{{ message }}</strong>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="singup-form">
+      <div id="image-section">
+        <p>
+          Select Profile Avatar
         </p>
 
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="singup-form">
-          <div id="image-section">
-            <p>
-              Select Profile Avatar
-            </p>
+        <!-- Select File -->
 
-            <!-- Select File -->
+        <div id="button-select-file">
+          <button id="avatar-button" (click)='imageInput.click()' mat-raised-button color="primary" type="button">Select</button>
+          <input type="file" #imageInput id="imageButton" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
+        </div>
+        
+        <!-- Image Preview -->
+        <div class="imagePreview" *ngIf="stringUrl && stringUrl !== ''">
+          <img [src]="stringUrl" [alt]="imgAvatar.value.name" id="avatar">
+        </div>
+      </div>
 
-            <div id="button-select-file">
-              <button id="avatar-button" (click)='imageInput.click()' mat-raised-button color="primary" type="button">Select</button>
-              <input type="file" #imageInput id="imageInput" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
-            </div>
-            
-            <!-- Image Preview -->
-            <div class="imagePreview" *ngIf="stringUrl && stringUrl !== ''">
-              <img [src]="stringUrl" [alt]="imgAvatar.value.name" id="avatar">
-            </div>
+      <div id="fields-section">
+        <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Name" formControlName="name" required> 
+              <mat-icon matSuffix>supervised_user_circle</mat-icon>    
+              <mat-error *ngIf="name.hasError('required')">
+                  Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="name.hasError('pattern')">
+                  Field should use <strong>Latin alphabet</strong> 
+              </mat-error>    
+            </mat-form-field>
+          </div>
+  
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Email" formControlName="email" required>
+              <mat-icon matSuffix>email</mat-icon> 
+              <mat-error *ngIf="email.hasError('required')">
+                Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="email.hasError('pattern')">
+                  Use right <strong>email format</strong> 
+              </mat-error>
+            </mat-form-field>
           </div>
 
-          <div id="fields-section">
-            <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                  <input matInput placeholder="Name" formControlName="name" required> 
-                  <mat-icon matSuffix>supervised_user_circle</mat-icon>    
-                  <mat-error *ngIf="name.hasError('required')">
-                      Field should be <strong>filled</strong>
-                  </mat-error>
-                  <mat-error *ngIf="name.hasError('pattern')">
-                      Field should use <strong>Latin alphabet</strong> 
-                  </mat-error>    
-                </mat-form-field>
-              </div>
-      
-              <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                  <input matInput placeholder="Email" formControlName="email" required>
-                  <mat-icon matSuffix>email</mat-icon> 
-                  <mat-error *ngIf="email.hasError('required')">
-                    Field should be <strong>filled</strong>
-                  </mat-error>
-                  <mat-error *ngIf="email.hasError('pattern')">
-                      Use right <strong>email format</strong> 
-                  </mat-error>
-                </mat-form-field>
-              </div>
-    
-              <div class="form-input-position">
-                <mat-form-field class="example-full-width"  >
-                  <input matInput placeholder="Phone number" formControlName="phoneNumber" required>
-                  <mat-icon matSuffix>email</mat-icon> 
-                  <mat-error *ngIf="phoneNumber.hasError('required')">
-                    Field should be <strong>filled</strong>
-                  </mat-error>
-                  <mat-error *ngIf="phoneNumber.hasError('pattern')">
-                      Use right <strong>Use only numbers, please</strong> 
-                  </mat-error>
-                </mat-form-field>
-              </div>
-      
-              <div class="form-input-position">
-                <mat-form-field class="example-full-width">
-                  <input matInput type="password" placeholder="Password" formControlName="password">
-                  <mat-icon matSuffix>lock</mat-icon>  
-                  <mat-error *ngIf="password.hasError('required')">
-                    Field should be <strong>filled</strong> 
-                  </mat-error>
-                  <mat-error *ngIf="password.hasError('pattern')">
-                    Should be <strong>minimum 8 elements, one uppercase letter, one number</strong> 
-                  </mat-error>                                  
-                </mat-form-field>
-              </div>
-                  
-              <div class="form-input-position">
-                <mat-form-field class="example-full-width">
-                  <input matInput type="password" placeholder="Repeat password" formControlName="passwordConfirm">
-                  <mat-icon matSuffix>lock</mat-icon>                     
-                    <mat-error *ngIf="passwordConfirm.hasError('mismatch')">
-                      Field is <strong>mismatch</strong> 
-                    </mat-error>
-                    <mat-error *ngIf="passwordConfirm.hasError('required')">
-                      Field should be <strong>filled</strong> 
-                    </mat-error>                   
-                </mat-form-field>
-              </div>
-      
-              <div class="form-input-button">
-                <button mat-raised-button color="primary" [disabled]="!profileForm.valid" type="submit">Submit</button>
-                <button mat-raised-button color="warn" (click)='onClose()' type="button">Cancel</button>
-              </div>
-          </div>    
-        </form>              
-    </div>
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width"  >
+              <input matInput placeholder="Phone number" formControlName="phoneNumber" required>
+              <mat-icon matSuffix>phone</mat-icon> 
+              <mat-error *ngIf="phoneNumber.hasError('required')">
+                Field should be <strong>filled</strong>
+              </mat-error>
+              <mat-error *ngIf="phoneNumber.hasError('pattern')">
+                  Use right <strong>Use only numbers, please</strong> 
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width">
+              <input matInput type="password" placeholder="Password" formControlName="password">
+              <mat-icon matSuffix>lock</mat-icon>  
+              <mat-error *ngIf="password.hasError('required')">
+                Field should be <strong>filled</strong> 
+              </mat-error>
+              <mat-error *ngIf="password.hasError('pattern')">
+                Should be <strong>minimum 8 elements, one uppercase letter, one number</strong> 
+              </mat-error>                                  
+            </mat-form-field>
+          </div>
+              
+          <div class="form-input-position">
+            <mat-form-field class="example-full-width">
+              <input matInput type="password" placeholder="Repeat password" formControlName="passwordConfirm">
+              <mat-icon matSuffix>lock</mat-icon>                     
+                <mat-error *ngIf="passwordConfirm.hasError('mismatch')">
+                  Field is <strong>mismatch</strong> 
+                </mat-error>
+                <mat-error *ngIf="passwordConfirm.hasError('required')">
+                  Field should be <strong>filled</strong> 
+                </mat-error>                   
+            </mat-form-field>
+          </div>
+  
+          <div class="form-input-button">
+            <button mat-raised-button color="primary" [disabled]="!profileForm.valid" type="submit">Submit</button>
+            <button mat-raised-button color="warn" routerLink="/index" type="button">Home</button>
+          </div>
+      </div>    
+    </form>                      
 </div>

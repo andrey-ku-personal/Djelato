@@ -342,3 +342,5 @@ healthchecksdb
 Logs/
 
 .vscode/
+
+wwwroot/
