@@ -21,7 +21,7 @@ namespace Djelato.xUnitTests.Services
         private readonly UserService _service;
         private byte[] _testSalt = new byte[16] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-    public UserServiceTests()
+        public UserServiceTests()
         {
             _mockManager = new Mock<IMongoManager>();
             _mockLogger = new Mock<ILogger<UserService>>();
