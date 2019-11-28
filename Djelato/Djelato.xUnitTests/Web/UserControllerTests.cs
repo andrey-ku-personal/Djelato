@@ -23,9 +23,11 @@ namespace Djelato.xUnitTests.Web
         private readonly Mock<ILogger<UserController>> _mockLogger;
         private readonly Mock<INotifier> _mockEmailNotifier;
         private readonly Mock<IRedisRepo> _mockRedis;
+        private readonly Mock<IFileService> _mockFile;
+        private readonly Mock<IFormFile> _mockFormFile;
         private readonly UserController _controller;
 
-        private readonly UserDTO _correctEmail;
+        private readonly UserDTO _correctModel;
 
         public UserControllerTests()
         {
@@ -34,9 +36,13 @@ namespace Djelato.xUnitTests.Web
             _mockLogger = new Mock<ILogger<UserController>>();
             _mockEmailNotifier = new Mock<INotifier>();
             _mockRedis = new Mock<IRedisRepo>();
-            _controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object, _mockEmailNotifier.Object, _mockRedis.Object);
+            _mockFile = new Mock<IFileService>();
+            _mockFormFile = new Mock<IFormFile>();
+            _mockFormFile.Setup(x => x.Name).Returns("Avatar");
 
-            _correctEmail = new UserDTO() { Email = "exist@mail.com" };
+            _controller = new UserController(_mockLogger.Object, _mockMapper.Object, _mockUserService.Object, _mockEmailNotifier.Object, _mockRedis.Object, _mockFile.Object);
+
+            _correctModel = new UserDTO() {Avatar = _mockFormFile.Object, Email = "exist@mail.com" };
         }
 
         #region Add Async
@@ -48,8 +54,26 @@ namespace Djelato.xUnitTests.Web
             _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             //Action
-            var actResult = await _controller.AddAsync(_correctEmail);
+            var actResult = await _controller.AddAsync(_correctModel);
             var contentResult = actResult as  ContentResult;
+
+            //Assert
+            Assert.IsType<ContentResult>(actResult);
+            Assert.Equal(StatusCodes.Status400BadRequest, contentResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_ReturnStatus400_When_ImageNullAsync()
+        {
+            //Arrange
+            var imageRes = new ServiceResult<string>(false, null, null);
+
+            _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
+            _mockFile.Setup(x => x.SaveAvatarImg(It.IsAny<IFormFile>(), null)).ReturnsAsync(imageRes);            
+
+            //Action
+            var actResult = await _controller.AddAsync(_correctModel);
+            var contentResult = actResult as ContentResult;
 
             //Assert
             Assert.IsType<ContentResult>(actResult);
@@ -61,11 +85,15 @@ namespace Djelato.xUnitTests.Web
         {
             //Arrange
             var addResult = new ServiceResult(false, null);
+            var imageRes = new ServiceResult<string>(true, "some route", null);
+            var model = new UserModel();
 
             _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
+            _mockFile.Setup(x => x.SaveAvatarImg(It.IsAny<IFormFile>(), null)).ReturnsAsync(imageRes);
+            _mockMapper.Setup(x => x.Map<UserModel>(_correctModel)).Returns(model);
 
             //Action
-            var actResult = await _controller.AddAsync(_correctEmail);
+            var actResult = await _controller.AddAsync(_correctModel);
             var contentResult = actResult as ContentResult;
 
             //Assert
@@ -78,13 +106,17 @@ namespace Djelato.xUnitTests.Web
         {
             //Arrange
             var addResult = new ServiceResult(true, null);
+            var imageRes = new ServiceResult<string>(true, "some route", null);
+            var model = new UserModel();
 
             _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
+            _mockFile.Setup(x => x.SaveAvatarImg(It.IsAny<IFormFile>(), null)).ReturnsAsync(imageRes);
+            _mockMapper.Setup(x => x.Map<UserModel>(_correctModel)).Returns(model);
             _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
             _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny <string>())).ReturnsAsync(false);
 
             //Action
-            var actResult = await _controller.AddAsync(_correctEmail);
+            var actResult = await _controller.AddAsync(_correctModel);
             var contentResult = actResult as ContentResult;
 
             //Assert
@@ -97,13 +129,17 @@ namespace Djelato.xUnitTests.Web
         {
             //Arrange
             var addResult = new ServiceResult(true, null);
+            var imageRes = new ServiceResult<string>(true, "some route", null);
+            var model = new UserModel();
 
             _mockUserService.Setup(x => x.CheckByEmailAsync(It.IsAny<string>())).ReturnsAsync(false);
+            _mockFile.Setup(x => x.SaveAvatarImg(It.IsAny<IFormFile>(), null)).ReturnsAsync(imageRes);
+            _mockMapper.Setup(x => x.Map<UserModel>(_correctModel)).Returns(model);
             _mockUserService.Setup(x => x.AddAsync(It.IsAny<UserModel>())).ReturnsAsync(addResult);
-            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+            _mockRedis.Setup(x => x.SetAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);            
 
             //Action
-            var actResult = await _controller.AddAsync(_correctEmail);
+            var actResult = await _controller.AddAsync(_correctModel);
             var contentResult = actResult as ContentResult;
 
             //Assert
@@ -204,6 +240,7 @@ namespace Djelato.xUnitTests.Web
 
         [Theory]
         [InlineData("Name empty")]
+        [InlineData("Avatar object null")]
         [InlineData("Name null")]
         [InlineData("Name incorrect")]
         [InlineData("Email empty")]
@@ -239,6 +276,20 @@ namespace Djelato.xUnitTests.Web
                     "Valid user data",
                     new UserDTO
                     {
+                        Avatar = _mockFormFile.Object,
+                        Name = "Test",
+                        Email = "Test@mail.ru",
+                        PhoneNumber = "1234",
+                        Password = "1234567A",
+                        PasswordConfirm = "1234567A"
+                    }
+                },
+
+                {
+                    "Avatar object null",
+                    new UserDTO
+                    {
+                        Avatar = null,
                         Name = "Test",
                         Email = "Test@mail.ru",
                         PhoneNumber = "1234",

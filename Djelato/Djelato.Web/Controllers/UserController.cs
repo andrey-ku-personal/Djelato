@@ -55,16 +55,16 @@ namespace Djelato.Web.Controllers
                     return result;
                 }
 
-                var saveImgResult = await _fileService.SaveAvatarImg(user.Avatar);
-                if (!saveImgResult.IsSuccessful || string.IsNullOrEmpty(saveImgResult.Obj))
+                var imgRouteRes = await _fileService.SaveAvatarImg(user.Avatar);
+                if (!imgRouteRes.IsSuccessful || string.IsNullOrEmpty(imgRouteRes.Obj))
                 {
                     _logger.LogInformation($"User avatar wasn't saved in root directory. (User {user.Name})");
-                    var result = ClientError(saveImgResult.Message);
+                    var result = ClientError(imgRouteRes.Message);
                     return result;
                 }
 
                 UserModel model = _mapper.Map<UserModel>(user); // configure email to lower case in mapper settings!
-                model.AvatarPath = saveImgResult.Obj;
+                model.AvatarPath = imgRouteRes.Obj;
 
                 ServiceResult addResult = await _userService.AddAsync(model);
                 if (!addResult.IsSuccessful)
