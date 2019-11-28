@@ -10,6 +10,6 @@ namespace Djelato.Services.Services.Interfaces
     {
         Task<ServiceResult> AddAsync(UserModel model);
         public Task<bool> ConfirmEmailAsync(string email);
-        public Task<bool> CheckByEmailAsync(string email);        
+        public Task<bool> CheckByEmailAsync(string email);
     }
 }

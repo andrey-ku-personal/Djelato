@@ -1,9 +1,6 @@
 ﻿using Djelato.DataAccess.Context;
 using Djelato.DataAccess.MongoRepositories.Interfaces;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Djelato.DataAccess.MongoRepositories

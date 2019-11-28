@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Djelato.Common.Entity;
 using Djelato.DataAccess.Entity;
 using Djelato.DataAccess.Managers.Interfaces;
 using Djelato.Services.Models;
@@ -8,9 +7,6 @@ using Djelato.Services.Services;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

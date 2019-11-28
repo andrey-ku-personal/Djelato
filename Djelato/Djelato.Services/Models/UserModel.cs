@@ -1,7 +1,4 @@
 ﻿using Djelato.Common.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Djelato.Services.Models
 {

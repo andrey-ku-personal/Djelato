@@ -7,10 +7,8 @@ using Djelato.Services.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Djelato.Services.Services
@@ -63,15 +61,8 @@ namespace Djelato.Services.Services
 
         public async Task<bool> CheckUserAsync(string email)
         {
-            bool isExist = await _mongoManager.UserManager.CheckAsync(email);
-            if (isExist)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bool isExistTask = await _mongoManager.UserManager.CheckAsync(email);
+            return isExistTask;
         }
 
         public async Task<ServiceResult<string>> GetTokenAsync(string email)

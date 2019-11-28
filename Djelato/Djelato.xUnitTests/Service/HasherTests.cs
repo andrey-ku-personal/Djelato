@@ -1,7 +1,4 @@
 ﻿using Djelato.Services.PasswordHasher;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Djelato.xUnitTests.Service

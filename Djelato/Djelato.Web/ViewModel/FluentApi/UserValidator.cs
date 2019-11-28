@@ -1,10 +1,6 @@
 ﻿using Djelato.Common.Entity;
 using Djelato.Common.Shared;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Djelato.Web.ViewModel.FluentApi
 {
@@ -12,6 +8,9 @@ namespace Djelato.Web.ViewModel.FluentApi
     {
         public UserValidator()
         {
+            RuleFor(u => u.Avatar).NotNull().WithMessage("Please choose profile avatar")
+                .NotEmpty().WithMessage("Please choose profile avatar");
+
             RuleFor(u => u.Name).NotEmpty().WithMessage("Name field cant be empty")
                 .NotNull().WithMessage("Name field should be fill in")
                 .Matches(RegexExpressions.NameRgx).WithMessage("Field should use latin alphabet");

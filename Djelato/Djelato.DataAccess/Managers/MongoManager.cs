@@ -4,9 +4,6 @@ using Djelato.DataAccess.Managers.Interfaces;
 using Djelato.DataAccess.MongoRepositories;
 using Djelato.DataAccess.MongoRepositories.Interfaces;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Djelato.DataAccess.Managers
 {

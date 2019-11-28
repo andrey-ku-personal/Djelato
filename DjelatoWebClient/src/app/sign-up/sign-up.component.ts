@@ -146,7 +146,7 @@ export class SignUpComponent implements OnInit {
 
     this.userService.createUser(profile).subscribe((data: IResponseContent) => {
       if (data.isSucceeded){
-        
+        this.message = "";
       }
     }, (error) => {
       let errorContent: IResponseContent = error.error;        

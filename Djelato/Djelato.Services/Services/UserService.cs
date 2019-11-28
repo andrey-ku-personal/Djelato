@@ -5,10 +5,7 @@ using Djelato.Services.Models;
 using Djelato.Services.PasswordHasher;
 using Djelato.Services.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Djelato.Services.Services
@@ -20,7 +17,8 @@ namespace Djelato.Services.Services
         private readonly IMapper _mapper;
         private readonly IHasher _hasher;
 
-        public UserService(IMongoManager userManager, 
+        public UserService(
+            IMongoManager userManager, 
             ILogger<UserService> logger, 
             IMapper mapper, 
             IHasher hasher)
@@ -101,15 +99,8 @@ namespace Djelato.Services.Services
 
         public async Task<bool> CheckByEmailAsync(string email)
         {
-            bool isExist = await _userManager.UserManager.CheckAsync(email);
-            if (isExist)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var isExistTask = await _userManager.UserManager.CheckAsync(email);
+            return isExistTask;
         }
     }
 }

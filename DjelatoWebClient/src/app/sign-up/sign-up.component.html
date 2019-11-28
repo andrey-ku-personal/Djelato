@@ -19,7 +19,7 @@
 
         <div id="button-select-file">
           <button id="avatar-button" (click)='imageInput.click()' mat-raised-button color="primary" type="button">Select</button>
-          <input type="file" #imageInput id="imageButton" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
+          <input type="file" #imageInput id="imageInput" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
         </div>
         
         <!-- Image Preview -->

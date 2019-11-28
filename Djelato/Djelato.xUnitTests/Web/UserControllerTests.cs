@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Djelato.Common.Entity;
 using Djelato.DataAccess.RedisRepositories.Interfaces;
 using Djelato.Services.Models;
 using Djelato.Services.Notification;
-using Djelato.Services.Services;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.Controllers;
 using Djelato.Web.ViewModel;
@@ -12,9 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
