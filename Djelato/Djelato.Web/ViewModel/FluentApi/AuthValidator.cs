@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Djelato.Web.ViewModel.FluentApi
 {
-    public class AuthValidator : AbstractValidator<UserDTO>
+    public class AuthValidator : AbstractValidator<AuthDTO>
     {
         public AuthValidator()
         {

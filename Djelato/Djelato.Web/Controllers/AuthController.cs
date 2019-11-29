@@ -29,7 +29,7 @@ namespace Djelato.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> AuthenticationAsync([FromBody] AuthDTO authDTO)
+        public async Task<IActionResult> AuthenticateAsync([FromBody] AuthDTO authDTO)
         {
             try
             {

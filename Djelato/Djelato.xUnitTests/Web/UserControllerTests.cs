@@ -229,10 +229,10 @@ namespace Djelato.xUnitTests.Web
         {
             //Arrange
             var validator = new UserValidator();
-            UserDTO userDTO = GetTestDTOModel(userModel);
+            UserDTO dto = GetTestDTOModel(userModel);
 
             //Act
-            var validationResult = validator.Validate(userDTO);
+            var validationResult = validator.Validate(dto);
 
             //Assert
             Assert.True(validationResult.IsValid);
@@ -257,10 +257,10 @@ namespace Djelato.xUnitTests.Web
         {
             //Arrange
             var validator = new UserValidator();
-            UserDTO userDTO = GetTestDTOModel(userModel);
+            UserDTO dto = GetTestDTOModel(userModel);
 
             //Act
-            var validationResult = validator.Validate(userDTO);
+            var validationResult = validator.Validate(dto);
 
             //Assert
             Assert.False(validationResult.IsValid);
