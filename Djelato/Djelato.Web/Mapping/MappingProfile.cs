@@ -2,10 +2,6 @@
 using Djelato.DataAccess.Entity;
 using Djelato.Services.Models;
 using Djelato.Web.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Djelato.Web.Mapping
 {

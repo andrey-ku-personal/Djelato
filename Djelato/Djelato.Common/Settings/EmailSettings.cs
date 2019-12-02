@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Djelato.Common.Settings
+﻿namespace Djelato.Common.Settings
 {
     public class EmailSettings
     {

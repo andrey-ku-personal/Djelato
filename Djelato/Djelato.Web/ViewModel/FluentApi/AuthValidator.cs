@@ -1,13 +1,9 @@
 ﻿using Djelato.Common.Shared;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Djelato.Web.ViewModel.FluentApi
 {
-    public class AuthValidator : AbstractValidator<UserDTO>
+    public class AuthValidator : AbstractValidator<AuthDTO>
     {
         public AuthValidator()
         {

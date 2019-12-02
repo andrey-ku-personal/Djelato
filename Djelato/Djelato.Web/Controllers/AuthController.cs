@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Djelato.Services.JWT.Interfaces;
 using Djelato.Services.Models;
 using Djelato.Services.Services.Interfaces;
 using Djelato.Web.ViewModel;
@@ -32,7 +29,7 @@ namespace Djelato.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> AuthenticationAsync([FromBody] AuthDTO authDTO)
+        public async Task<IActionResult> AuthenticateAsync([FromBody] AuthDTO authDTO)
         {
             try
             {

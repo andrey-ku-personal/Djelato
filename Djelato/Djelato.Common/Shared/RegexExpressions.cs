@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Djelato.Common.Shared
+﻿namespace Djelato.Common.Shared
 {
     public static class RegexExpressions
     {
