@@ -1,0 +1,32 @@
+#login-box {
+    width: 440px;
+    height: auto;
+    border: 2px solid #00218f;
+    border-radius: 10px;
+    margin: 50px auto;
+    background-color: aliceblue;    
+    position: relative;
+}
+
+.form-name {
+    padding-top  : 25px;
+}
+
+.form-name p {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 1.5em;
+    color: #00218f;
+}
+
+hr {
+    width: 200px;
+    text-align: center;
+    border: 0;
+    border-bottom: 5px solid #00218f;
+    border-radius: 5px;
+    text-shadow: none;
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 
-import { UserService } from '../Services/UserServices/user.service';
+import { UserService } from '../services/User/user.service';
 
-import { UserModel } from '../sign-up//models/user-model';
+import { UserModel } from '../models/user-model';
 
 import { IResponseContent } from '../shared/models/response-content';
 
@@ -25,15 +25,21 @@ export class SignUpComponent implements OnInit {
   fileToUpload: File = null;
   isLoading = false;
 
-  constructor(
-    private userService: UserService,
+  constructor(    
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
   ){
-    this.profileInitForm();
+    this.initProfileForm();
   }
 
-  profileInitForm(){  
+  ngOnInit() {
+    this.profileForm.get("password").valueChanges.subscribe(() => {
+      this.profileForm.get("passwordConfirm").updateValueAndValidity();
+    });
+  }
+
+  initProfileForm(): void {  
     this.profileForm = this.formBuilder.group({
       avatar: [
         ''
@@ -62,13 +68,7 @@ export class SignUpComponent implements OnInit {
         this.checkPasswords()
       ]]
     });
-  }
-
-  ngOnInit() {
-    this.profileForm.get("password").valueChanges.subscribe(() => {
-      this.profileForm.get("passwordConfirm").updateValueAndValidity();
-    });
-  }
+  }  
 
   //password validation
   checkPasswords(): ValidatorFn {
@@ -86,7 +86,7 @@ export class SignUpComponent implements OnInit {
     };
   }
 
-  //from property
+  //from form property
   get imgAvatar(){
     return this.profileForm.get('avatar')
   }
@@ -146,12 +146,10 @@ export class SignUpComponent implements OnInit {
   onSubmit(): void {
     let profile: FormData = this.appendFile();
 
-    this.model = <UserModel>this.profileForm.value;
-
     this.isLoading = true;
 
     this.userService.createUser(profile).subscribe((data: IResponseContent) => {
-      if (data.isSucceeded){
+      if (data.isSucceeded) {
         this.message = '';
         this.isLoading = false;
 
@@ -164,15 +162,15 @@ export class SignUpComponent implements OnInit {
       }
     }, (error) => {    
       let errorContent: IResponseContent = error.error;        
-      if (!errorContent.isSucceeded){
-        this.message = errorContent.errorMessage;
+      if (!errorContent.isSucceeded) {
         this.isLoading = false;
+        this.message = errorContent.errorMessage;       
 
         this.toastr.error(           
           this.message, 
           'Sorry!',
         {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-right'
         });        
       }      
     });

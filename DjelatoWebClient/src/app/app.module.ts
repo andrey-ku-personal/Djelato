@@ -15,13 +15,11 @@ import { ConfirmEmailPopupComponent } from './confirm-email-popup/confirm-email-
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 
 import { ToastrModule } from 'ngx-toastr';
 
 import { MaterialModule } from './shared/material/material.module';
-import { LoginComponent } from './login/login.component';
-
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -43,8 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,    
     HttpClientModule,
     ToastrModule.forRoot(),
-    LayoutModule,
-    MatProgressSpinnerModule
+    LayoutModule
   ],
   exports: [
   ],

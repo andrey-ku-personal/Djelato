@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { MatDialogRef } from '@angular/material';
 
-import { UserService } from '../Services/UserServices/user.service';
+import { UserService } from '../services/User/user.service';
 
 import { RegexExpressions } from '../shared/regex-expressions';
 import { IResponseContent } from '../shared/models/response-content';
