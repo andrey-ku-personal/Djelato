@@ -10,12 +10,13 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;  
   top: 0;
+  z-index: 100;
 }
 
 ::ng-deep .mat-toolbar.mat-primary{

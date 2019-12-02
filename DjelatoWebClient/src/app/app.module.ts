@@ -19,7 +19,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ToastrModule } from 'ngx-toastr';
 
 import { MaterialModule } from './shared/material/material.module';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { LoginComponent } from './login/login.component'
     ReactiveFormsModule,    
     HttpClientModule,
     ToastrModule.forRoot(),
-    LayoutModule
+    LayoutModule,
+    MatProgressSpinnerModule
   ],
   exports: [
   ],

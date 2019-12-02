@@ -27,7 +27,7 @@ export class ConfirmEmailPopupComponent implements OnInit {
     this.keyInit();
    }
 
-   onSubmit(){
+   onSubmit(): any{
     let keyNumber: number = this.key.value;
     return this.userServices.sentConfirmKey(keyNumber).subscribe((data: IResponseContent) =>{
 

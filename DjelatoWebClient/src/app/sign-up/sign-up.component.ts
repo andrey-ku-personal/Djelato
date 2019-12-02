@@ -8,6 +8,8 @@ import { UserModel } from '../sign-up//models/user-model';
 import { IResponseContent } from '../shared/models/response-content';
 
 import { RegexExpressions } from '../shared/regex-expressions';
+
+import { ToastrService } from 'ngx-toastr';
  
 @Component({
   selector: 'app-sign-up',
@@ -21,10 +23,12 @@ export class SignUpComponent implements OnInit {
   model: UserModel;
   message: string;
   fileToUpload: File = null;
+  isLoading = false;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ){
     this.profileInitForm();
   }
@@ -144,14 +148,32 @@ export class SignUpComponent implements OnInit {
 
     this.model = <UserModel>this.profileForm.value;
 
+    this.isLoading = true;
+
     this.userService.createUser(profile).subscribe((data: IResponseContent) => {
       if (data.isSucceeded){
-        
+        this.message = '';
+        this.isLoading = false;
+
+        this.toastr.success(
+          'Your profile create successfully', 
+          'Notification!',           
+        {
+          positionClass: 'toast-top-right',
+        });
       }
-    }, (error) => {
+    }, (error) => {    
       let errorContent: IResponseContent = error.error;        
       if (!errorContent.isSucceeded){
         this.message = errorContent.errorMessage;
+        this.isLoading = false;
+
+        this.toastr.error(           
+          this.message, 
+          'Sorry!',
+        {
+          positionClass: 'toast-top-right',
+        });        
       }      
     });
   }

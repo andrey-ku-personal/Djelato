@@ -1,4 +1,14 @@
 <div id="signup-box">
+
+
+  <div *ngIf="isLoading" class="spinner-box">
+    <mat-progress-spinner 
+      id="spinner"
+      color="primary"       
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
     <div class="form-name">
         <p>Registration form</p>
     </div>       
@@ -7,7 +17,7 @@
 
     <p class="server-error-message">
       <strong>{{ message }}</strong>
-    </p>
+    </p> 
 
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="singup-form">
       <div id="image-section">
@@ -19,7 +29,7 @@
 
         <div id="button-select-file">
           <button id="avatar-button" (click)='imageInput.click()' mat-raised-button color="primary" type="button">Select</button>
-          <input type="file" #imageInput id="imageButton" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
+          <input type="file" #imageInput id="imageInput" (change)='onSelectFile($event)' accept="image/jpeg,image/gif,image/png,image/jpg," multiple/>  
         </div>
         
         <!-- Image Preview -->
@@ -97,7 +107,7 @@
           <div class="form-input-button">
             <button mat-raised-button color="primary" [disabled]="!profileForm.valid" type="submit">Submit</button>
             <button mat-raised-button color="warn" routerLink="/index" type="button">Home</button>
-          </div>
+          </div>          
       </div>    
     </form>                      
 </div>

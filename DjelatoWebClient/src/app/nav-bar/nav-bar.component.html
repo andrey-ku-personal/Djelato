@@ -2,13 +2,12 @@
   <mat-sidenav
     #drawer
     class="sidenav"
-    disableClose="false"
     fixedInViewport="non-fixed"
 
-    [ngClass] = "{hidden: (isHandset$ | async)!.matches}"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [ngClass] = "{hidden: (isSmall$ | async).matches}"
+    [attr.role]="(isSmall$ | async) ? 'dialog' : 'navigation'"
     [mode]="isLargeScreen() ? 'side' : 'over'"
-    [opened]="!(isHandset$ | async)">
+    [opened]="!(isSmall$ | async)">
     <mat-toolbar color="primary">      
       <span class="title-description">Djelato store</span>
 

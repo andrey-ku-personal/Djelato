@@ -28,8 +28,8 @@ export class ConfirmEmailComponent implements OnInit {
 
         if (result && result.isSucceeded){
           this.toastr.success(
-            'Notification!', 
-          'Email has confirmed successfully', 
+            'Email has confirmed successfully', 
+            'Notification!',             
           {
             positionClass: 'toast-top-full-width',
           });
